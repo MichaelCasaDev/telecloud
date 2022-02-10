@@ -1,0 +1,249 @@
+#settingsBox {
+  margin-top: 10rem;
+  padding-bottom: 4rem;
+  height: max-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#settingsBox .item {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 20rem 18rem;
+  align-items: center;
+
+  margin: 1.5rem auto;
+}
+
+#settingsBox .item p {
+  align-items: center;
+  text-align: center;
+}
+
+#settingsBox .item p.button {
+  width: 12rem;
+  margin: auto;
+}
+
+#settingsBox .mod {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  min-width: 100%;
+
+  padding: 2rem;
+
+  margin: 1rem auto;
+}
+
+#settingsBox .divider {
+  width: 90%;
+  max-width: 40rem;
+  height: 1px;
+
+  margin: 2rem auto;
+
+  border-bottom: solid 0.5px #ccc;
+}
+
+#settingsBox .center {
+  margin: auto;
+  text-align: center;
+}
+
+#settingsBox .button {
+  border-radius: 10px;
+  border: solid 0.5px #cccccc;
+  padding: 0.5rem;
+
+  cursor: pointer;
+
+  transition: transform 400ms;
+}
+
+#settingsBox .button:active {
+  transform: scale(1.05);
+
+  transition: transform 400ms;
+}
+
+#settingsBox .red {
+  background-color: rgb(255, 83, 83);
+  color: white;
+}
+
+#settingsBox .version {
+  color: rgb(167, 167, 167);
+}
+
+#settingsBox .logout {
+  text-align: center;
+
+  border: solid 0.5px rgb(255, 83, 83);
+  color: rgb(255, 83, 83);
+}
+
+#themeSwitch {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  background-color: rgba(201, 201, 201, 0.199);
+  border-radius: 5px;
+
+  padding: 0 1rem;
+
+  font-size: 14px;
+}
+
+#themeSwitch p {
+  cursor: pointer;
+  border-radius: 5px;
+
+  margin: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border: solid 1px transparent;
+}
+
+#themeSwitch p.selected {
+  background-color: rgb(255, 255, 255);
+  border: solid 1px rgb(85, 85, 255);
+}
+
+#fileDestination {
+  height: auto;
+  max-height: 60vh;
+
+  margin: auto;
+
+  border-radius: 10px;
+}
+
+#fileDestination .chat {
+  background-color: #e2e2e2;
+  color: black;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  padding: 0 1rem;
+
+  border-radius: 10px;
+}
+
+#fileDestination .chatList .chat {
+  cursor: pointer;
+  margin: 0;
+
+  border-radius: 0;
+  border-bottom: solid 0.5px #ccc;
+}
+
+#fileDestination .chat .name {
+  margin-left: 1rem;
+}
+
+#fileDestination .chat .icon img {
+  border-radius: 100%;
+  height: 2rem;
+  width: 2rem;
+}
+
+#fileDestination .chat .showMore {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+#fileDestination .chatList {
+  margin-top: -1rem;
+  z-index: 10;
+  height: 100%;
+  max-height: 40vh;
+
+  border-radius: 10px;
+
+  margin: auto;
+
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+@media only screen and (max-width: 900px) {
+  .internalModal.plans {
+    overflow: auto;
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  #modal .plans form .inputs {
+    margin: 0;
+
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto auto;
+    grid-auto-flow: row;
+    justify-content: space-around;
+    width: 100%;
+    min-height: max-content;
+  }
+
+  #modal .plans form .inputs .plan {
+    margin: 1rem;
+    height: max-content;
+  }
+
+  #modal .plans form {
+    height: 80vh;
+  }
+
+  #settingsBox .item {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: auto;
+    grid-template-rows: 3rem 3rem;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* ################### */
+/* Dark Mode */
+/* ################### */
+
+[data-theme="dark"],
+[data-theme="dark"] #version {
+  color: white;
+}
+
+[data-theme="dark"] .internalModal.plans .inputs .plan .features .disable {
+  color: rgb(153, 153, 153);
+}
+
+[data-theme="dark"] .internalModal.plans .inputs .plan .features .enable {
+  color: white;
+}
+
+[data-theme="dark"] .internalModal.plans .inputs .plan .selected {
+  background-color: #1f1f1f;
+  color: rgb(212, 212, 212);
+}
+
+[data-theme="dark"] .internalModal.plans .inputs .plan .select {
+  background-color: #383838;
+  color: rgb(255, 255, 255);
+}
+
+[data-theme="dark"] #themeSwitch p.selected {
+  background-color: rgb(85, 85, 85);
+}
+
+[data-theme="dark"] #fileDestination .chat {
+  background-color: rgb(51, 51, 51);
+  color: white;
+}

@@ -1,0 +1,132 @@
+.notificationBox {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+
+  z-index: 10;
+
+  background-color: white;
+  border: solid 0.5px rgb(145, 145, 145);
+
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.5rem 2rem;
+}
+
+.notificationBox #icon {
+  padding: 1rem;
+}
+
+.notificationBox #text {
+  margin-left: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.notificationBox #text p {
+  margin: 10px 0;
+}
+
+.notificationBox #text #title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.notificationBox #text #subtitle {
+  font-size: 14px;
+}
+
+/* status */
+
+.notificationBox[id="success"] {
+  border-bottom: solid 6px rgb(0, 185, 0);
+
+  -webkit-animation: slide-inNotification 400ms ease-in-out both;
+  animation: slide-inNotification 400ms ease-in-out both;
+}
+
+.notificationBox[id="error"] {
+  border-bottom: solid 6px rgb(185, 0, 0);
+
+  -webkit-animation: slide-inNotification 400ms ease-in-out both;
+  animation: slide-inNotification 400ms ease-in-out both;
+}
+
+.notificationBox[id="loading"] {
+  border-bottom: solid 6px rgb(0, 163, 185);
+
+  -webkit-animation: slide-inNotification 400ms ease-in-out both;
+  animation: slide-inNotification 400ms ease-in-out both;
+}
+
+.notificationBox[id="none"] {
+  -webkit-animation: slide-outNotification 400ms ease-in-out both;
+  animation: slide-outNotification 400ms ease-in-out both;
+}
+
+.notificationBox[id="disabled"] {
+  visibility: hidden;
+}
+
+@-webkit-keyframes slide-inNotification {
+  0% {
+    transform: translateX(20rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-inNotification {
+  0% {
+    transform: translateX(20rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes slide-outNotification {
+  100% {
+    transform: translateX(20rem);
+    opacity: 0;
+    visibility: hidden;
+  }
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-outNotification {
+  100% {
+    transform: translateX(20rem);
+    opacity: 0;
+    visibility: hidden;
+  }
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ################### */
+/* Dark Mode */
+/* ################### */
+
+[data-theme="dark"],
+[data-theme="dark"] .notificationBox {
+  background-color: #14171A;
+  color: white;
+}

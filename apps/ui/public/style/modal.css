@@ -1,0 +1,177 @@
+@-webkit-keyframes slide-inA {
+  0% {
+    transform: opacity(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: opacity(1);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes slide-inA {
+  0% {
+    transform: opacity(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: opacity(1);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@-webkit-keyframes slide-outA {
+  100% {
+    transform: opacity(0.9);
+    opacity: 0;
+    visibility: hidden;
+  }
+  0% {
+    transform: opacity(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-outA {
+  100% {
+    transform: opacity(0.9);
+    opacity: 0;
+    visibility: hidden;
+  }
+  0% {
+    transform: opacity(1);
+    opacity: 1;
+  }
+}
+
+#modal {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  background-color: transparent;
+  z-index: 13;
+
+  top: 0;
+}
+
+.internalModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding-top: 2rem;
+  width: 100%;
+  max-width: 32rem;
+
+  border-radius: 10px;
+  background-color: rgba(235, 235, 235, 1);
+}
+
+.modalHideA {
+  visibility: hidden;
+}
+
+.modalHide {
+  -webkit-animation: slide-outA 250ms ease-in-out both;
+  animation: slide-outA 250ms ease-in-out both;
+}
+
+.modalShow {
+  -webkit-animation: slide-inA 250ms ease-in-out both;
+  animation: slide-inA 250ms ease-in-out both;
+}
+
+#modal .boxTitle {
+  margin-left: 2rem;
+  font-size: 18px;
+}
+
+#modal form .inputs {
+  margin: 0 2rem 0 2rem;
+}
+
+#modal form input {
+  background-color: rgba(235, 235, 235, 1);
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  border-radius: 99999px;
+
+  border: 1px solid rgba(50, 51, 53, 1);
+  color: black;
+
+  margin-top: 1rem;
+  width: 100%;
+}
+
+#modal form .buttons {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+}
+
+#modal form button {
+  background-color: rgba(235, 235, 235, 1);
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  cursor: pointer;
+  white-space: nowrap;
+
+  border: 1px solid rgba(50, 51, 53, 1);
+  border-bottom: none;
+  float: right;
+
+  transition: background-color 250ms ease-in-out;
+  width: 100%;
+  padding: 1rem;
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
+}
+
+#modal form button:hover {
+  transition: background-color 250ms ease-in-out;
+  background-color: rgba(235, 235, 235, 1);
+}
+
+#modal form .cancelChange {
+  border-radius: 0 0 0 10px;
+  border-left: none;
+}
+
+#modal form .submitChange {
+  border-radius: 0 0 10px 0;
+  border-right: none;
+  border-left: none;
+
+  font-weight: 500;
+}
+
+.error {
+  color: rgb(255, 83, 83);
+  font-size: 15px;
+  padding: 0 2rem 0 2rem;
+}
+
+@media only screen and (max-width: 900px) {
+  .internalModal {
+    width: 80%;
+  }
+}
+
+/* ################### */
+/* Dark Mode */
+/* ################### */
+
+[data-theme="dark"],
+[data-theme="dark"] .internalModal,
+[data-theme="dark"] #modal form button,
+[data-theme="dark"] #modal form input {
+  background-color: #26292c;
+  color: white;
+}

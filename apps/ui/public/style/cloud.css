@@ -1,0 +1,364 @@
+@-webkit-keyframes slide-inA {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes slide-inA {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@-webkit-keyframes slide-outA {
+  100% {
+    transform: scale(0.9);
+    opacity: 0;
+    visibility: hidden;
+  }
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-outA {
+  100% {
+    transform: scale(0.9);
+    opacity: 0;
+    visibility: hidden;
+  }
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+#filesBox {
+  margin-top: 19rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  height: calc(100vh - 20rem);
+}
+
+#names {
+  display: grid;
+  grid-auto-flow: column;
+
+  text-align: center;
+  padding: 0;
+
+  margin-bottom: 2rem;
+}
+
+#filesBox .file,
+#names {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 5% 60% 15% 15%;
+
+  width: 100%;
+  align-items: center;
+  text-align: left;
+
+  padding: 0.5rem;
+  margin: 2px;
+
+  border-bottom: solid 0.5px rgb(145, 145, 145);
+
+  color: black;
+}
+
+#filesBox .file #select,
+#names #select {
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#filesBox .file p {
+  margin: 0.5rem;
+}
+
+#filesBox .file {
+  position: relative;
+
+  transition: background-color 400ms ease-in-out;
+}
+
+#filesBox .file *:not(#iconName, #select) {
+  pointer-events: none;
+}
+
+#filesBox .file.selected {
+  background-color: #8bbff3;
+
+  transition: background-color 400ms ease-in-out;
+}
+
+#filesBox .file #iconName {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+
+  margin: 0;
+  margin-right: 1.2rem;
+}
+
+#filesBox .file img {
+  width: 2rem;
+  height: 2rem;
+
+  margin-right: 1rem;
+}
+
+#filesBox .file #settings {
+  cursor: pointer;
+}
+
+#filesBox .file #name {
+  word-break: break-word;
+
+  width: 100%;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#names .sort {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  cursor: pointer;
+
+  width: max-content;
+}
+
+#names .sort .iconSort {
+  display: flex;
+  flex-direction: column;
+
+  margin-left: 1rem;
+}
+
+#names .sort .iconSort img {
+  width: 1.2rem;
+  height: 1.2rem;
+
+  opacity: 0.4;
+}
+
+/* Add */
+
+#add {
+  position: fixed;
+  bottom: 4rem;
+  right: 4rem;
+
+  display: flex;
+  border-radius: 100%;
+  cursor: pointer;
+
+  transition: box-shadow 200ms ease-in-out, transform 200ms ease-in-out;
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.4);
+
+  justify-content: center;
+  text-align: center;
+
+  z-index: 11;
+}
+
+#add label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#add img {
+  border-radius: 100%;
+
+  width: 3rem;
+  height: 3rem;
+}
+
+#add:hover {
+  transition: box-shadow 200ms ease-in-out, transform 200ms ease-in-out;
+
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 20px 5px rgba(73, 73, 73, 0.4);
+}
+
+#add #options {
+  position: absolute;
+  bottom: 4rem;
+  width: 8rem;
+
+  background-color: white;
+  border: solid 0.5px rgb(145, 145, 145);
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#add #options label {
+  padding: 1rem;
+}
+
+#add .addHideA {
+  visibility: hidden;
+}
+
+#add .addHide {
+  -webkit-animation: slide-outA 100ms ease-in-out both;
+  animation: slide-outA 100ms ease-in-out both;
+}
+
+#add .addShow {
+  -webkit-animation: slide-inA 100ms ease-in-out both;
+  animation: slide-inA 100ms ease-in-out both;
+}
+
+/* File settings */
+
+#settingsBox {
+  position: absolute;
+  padding: 1rem 2rem;
+
+  background-color: white;
+  border: solid 0.5px rgb(145, 145, 145);
+  border-radius: 5px;
+
+  min-width: 10rem;
+  z-index: 10;
+}
+
+#settingsBox p {
+  cursor: pointer;
+}
+
+#settingsBox p#divider {
+  width: calc(100% + 2rem);
+  margin: 1.5rem 1rem;
+  margin-left: -1rem;
+  border-bottom: solid 1px black;
+}
+
+/* File preview */
+
+#filePreview {
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  padding: 2rem;
+
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  background-color: rgba(20, 23, 26, 0.4);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  color: white;
+}
+
+#filePreview #top,
+#filePreview #top p,
+#filePreview #bottom,
+#filePreview #bottom p {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 0;
+}
+
+#filePreview #preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 90vh;
+  padding: 1rem;
+}
+
+#filePreview #preview * {
+  border-radius: 10px;
+}
+
+#filePreview #preview img {
+  max-height: 80%;
+  object-fit: contain;
+}
+
+#filePreview #preview object {
+  background-color: white;
+  color: black;
+
+  min-width: 80%;
+  min-height: 80%;
+
+  border: 0;
+  border-radius: 10px;
+}
+
+#filePreview #preview audio {
+  width: 80%;
+  max-height: 80%;
+}
+
+#filePreview #preview p {
+  word-wrap: break-word;
+  overflow: auto;
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 900px) {
+  #filesBox {
+    height: calc(100vh - 24rem);
+  }
+}
+
+/* ################### */
+/* Dark Mode */
+/* ################### */
+
+[data-theme="dark"],
+[data-theme="dark"] #names,
+[data-theme="dark"] #settingsBox,
+[data-theme="dark"] #add #options {
+  background-color: #14171a;
+  color: white;
+}
+
+[data-theme="dark"] #settingsBox p#divider {
+  border-color: white;
+}
+
+[data-theme="dark"] #filesBox .file {
+  color: white;
+}

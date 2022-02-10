@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+
+  background-color: white;
+  color: black;
+
+  overflow-x: hidden;
+  font-size: 16px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  margin-left: 16rem;
+  height: 100vh;
+  width: calc(100% - 16rem);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  padding: 2rem;
+  padding-top: 0;
+  background-color: white;
+  color: black;
+
+  animation: showX 500ms ease-in-out both;
+}
+
+.container h1 {
+  margin: 0;
+}
+
+#header {
+  position: fixed;
+  width: calc(100% - 20rem);
+  padding-top: 4rem;
+  padding-bottom: 1rem;
+  background-color: white;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  z-index: 4;
+}
+
+.hideA {
+  visibility: hidden;
+}
+
+.hide {
+  -webkit-animation: slide-outA 100ms ease-in-out both;
+  animation: slide-outA 100ms ease-in-out both;
+}
+
+.show {
+  -webkit-animation: slide-inA 100ms ease-in-out both;
+  animation: slide-inA 100ms ease-in-out both;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+@media only screen and (max-width: 900px) {
+  .container {
+    margin-left: 0;
+    margin-top: 3rem;
+    width: 100%;
+    height: calc(100vh - 3rem);
+
+    padding: 1rem;
+  }
+
+  #header {
+    width: calc(100% - 2rem);
+  }
+}
+
+@keyframes showX {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* ################### */
+/* Dark Mode */
+/* ################### */
+
+[data-theme="dark"],
+[data-theme="dark"] body,
+[data-theme="dark"] .container,
+[data-theme="dark"] #header {
+  background-color: #14171a;
+  color: white;
+}

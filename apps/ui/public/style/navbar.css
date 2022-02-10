@@ -1,0 +1,256 @@
+.navbar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: calc(100vh);
+  min-width: 16rem;
+  max-width: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 4rem;
+
+  background-color: white;
+
+  border-right: solid 1px rgb(204, 204, 204);
+}
+
+.navbar a {
+  display: inline-block;
+  width: 100%;
+}
+
+.navbar a img {
+  width: 64px;
+}
+
+.navbar #links {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  font-size: 18px;
+  color: rgb(92, 92, 92);
+  font-weight: 500;
+}
+
+.navbar #links p {
+  cursor: pointer;
+  transition: color 300ms ease-in-out;
+}
+
+.navbar #links p:hover {
+  color: black;
+  transition: color 300ms ease-in-out;
+}
+
+.navbar #links a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+.navbar #links .selected {
+  color: black;
+}
+
+.navbar #links .close {
+  display: none;
+  background-color: transparent;
+}
+
+.navbar .menu {
+  display: none;
+  width: 32px;
+  height: 32px;
+}
+
+.navbar #links .button {
+  position: absolute;
+  text-align: center;
+  bottom: 2rem;
+
+  padding: 1rem;
+  width: 50%;
+  color: white;
+  background: linear-gradient(
+    225.42deg,
+    #02bdff 0%,
+    #2790ff 51.77%,
+    #4f5fff 99.27%
+  );
+  border-radius: 120px;
+
+  transition: box-shadow 200ms ease-in-out, transform 200ms ease-in-out;
+  box-shadow: 0px 0px 20px 4px rgba(2, 189, 255, 0.2);
+}
+
+.navbar #links .button:hover {
+  color: white;
+  transition: box-shadow 200ms ease-in-out, transform 200ms ease-in-out;
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 20px 4px rgba(2, 189, 255, 0.3);
+}
+
+@media only screen and (max-width: 900px) {
+  .navbar {
+    min-width: 100%;
+    max-width: 100%;
+    height: 4rem;
+    position: fixed;
+    padding: 2.5rem;
+    background-color: rgb(235, 235, 235);
+    z-index: 3;
+    transform-origin: top right;
+
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    border-right: none;
+  }
+
+  .navbar .menu {
+    display: block;
+    cursor: pointer;
+  }
+
+  .navbar a, .navbar a img {
+    width: 32px;
+  }
+
+  .navbar #links {
+    display: block;
+    background-color: rgb(235, 235, 235);
+
+    padding: 0.5rem 5rem 1rem 1rem;
+    border-radius: 10px;
+
+    color: rgb(92, 92, 92);
+
+    width: 100%;
+    z-index: 10;
+    text-align: left;
+
+    transform-origin: top right;
+
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    margin: 0;
+  }
+
+  .navbar #links .close {
+    display: block;
+  }
+
+  .navbar .no {
+    visibility: hidden;
+  }
+
+  .navbar .active {
+    -webkit-animation: slide-inA 100ms ease-in-out both;
+    animation: slide-inA 100ms ease-in-out both;
+  }
+
+  .navbar .disactive {
+    -webkit-animation: slide-outA 100ms ease-in-out both;
+    animation: slide-outA 100ms ease-in-out both;
+  }
+
+  .navbar button {
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 0;
+    text-align: left;
+  }
+
+  .navbar .close {
+    float: right;
+    border: none;
+    cursor: pointer;
+    margin-right: -2.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .navbar #links .button {
+    position: static;
+    margin-top: 3rem;
+
+    width: 100%;
+  }
+
+  @-webkit-keyframes slide-inA {
+    0% {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-inA {
+    0% {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @-webkit-keyframes slide-outA {
+    100% {
+      transform: scale(0.9);
+      opacity: 0;
+      visibility: hidden;
+    }
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-outA {
+    100% {
+      transform: scale(0.9);
+      opacity: 0;
+      visibility: hidden;
+    }
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+}
+
+/* ################### */
+/* Dark Mode */
+/* ################### */
+
+[data-theme='dark'],
+[data-theme='dark'] .navbar,
+[data-theme='dark'] .navbar #links,
+[data-theme='dark'] .navbar #links .selected {
+  background-color: #14171A;
+  color: white;
+}
+
+[data-theme='dark'] .navbar {
+  border-right: solid 1px #1e2227;
+}
+
+
+[data-theme='dark'] .navbar #links {
+  color: #AAB8C2;
+}
+
+[data-theme='dark'] .navbar #links p:hover {
+  color: white;
+}
