@@ -12,7 +12,9 @@ export interface DatabaseAuthType {
   collections: {
     files: string;
     users: string;
+    statistics: string;
   };
+  statisticsId: string;
 }
 
 export interface routeModuleInterface {

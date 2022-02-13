@@ -1,4 +1,4 @@
-import { Db, MongoClient } from "mongodb";
+import { Db, MongoClient, ObjectId } from "mongodb";
 import { TelegramClient } from "telegram";
 import * as config from "../config";
 import { stripeClientLogin } from "./stripe";
@@ -60,6 +60,7 @@ export async function createUserDatabase(
         fileDestination: {
           name: String("Saved messages"),
           id: String("me"),
+          img: String(config.images.savedMessages),
         },
         filePreview: Boolean(true),
       },
@@ -69,9 +70,24 @@ export async function createUserDatabase(
         stripeId: String(customer.id),
       },
       bandwidth: {
-        monthlyUsage: [],
+        monthlyUsage: [0],
         lastUpdate: Number(nowDateNumber),
       },
     });
+
+    /* ####################### */
+    // Update global statistics
+    /* ####################### */
+
+    await db.collection(config.database.collections.statistics).updateOne(
+      {
+        _id: new ObjectId(config.database.statisticsId),
+      },
+      {
+        $inc: {
+          totalUsers: 1,
+        },
+      }
+    );
   }
 }

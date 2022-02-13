@@ -1,10 +1,11 @@
-import { Db } from "mongodb";
+import { Db, ObjectId } from "mongodb";
 import { Request, Response } from "express";
 import { Api } from "telegram";
 import { connectToDatabase } from "../../../lib/database";
 import { telegramClientLogin, isAuthorized } from "../../../lib/telegram";
 import { asyncForEach } from "../../../lib/utils";
 import * as config from "../../../config";
+import { filesFromPath } from "../../../lib/filesFromPath";
 
 module.exports = {
   path: "/api/file/delete",
@@ -105,6 +106,21 @@ module.exports = {
         }
       );
 
+      /* ####################### */
+      // Update global statistics
+      /* ####################### */
+
+      await db.collection(config.database.collections.statistics).updateOne(
+        {
+          _id: new ObjectId(config.database.statisticsId),
+        },
+        {
+          $inc: {
+            totalFiles: -totFiles,
+          },
+        }
+      );
+
       return res.status(200).json({
         stringSession: telegramClient.session.save(),
         message: {
@@ -188,74 +204,3 @@ module.exports = {
     }
   },
 };
-
-async function filesFromPath(path: string, user: any, folder: any, db: Db) {
-  let totFiles = 0;
-  let totSpace = 0;
-  let totFolders = 1;
-  let files: any[] = [folder];
-
-  let f0: any[] = [];
-
-  // find folder and save file
-  await asyncForEach(user.files, async (el: any, i: number) => {
-    if (el.path == path + folder.name) {
-      let x = await db.collection(config.database.collections.files).findOne({
-        uuid: String(el.uuid),
-      });
-
-      if (x) {
-        if (x.isFolder) {
-          f0.push(x);
-          files.push(x);
-
-          totFolders++;
-        } else {
-          files.push(x);
-
-          totFiles++;
-          totSpace += Number(x.size);
-        }
-      }
-    }
-  });
-
-  // Delete subfolder and files
-  if (f0.length > 0) {
-    let i = 0;
-    let pathx = path + folder.name;
-
-    do {
-      pathx += "/" + f0[i].name;
-
-      await asyncForEach(user.files, async (el: any, i: number) => {
-        if (el.path == pathx) {
-          let x = await db
-            .collection(config.database.collections.files)
-            .findOne({
-              uuid: String(el.uuid),
-            });
-
-          if (x) {
-            if (x.isFolder) {
-              f0.push(x);
-              i++;
-              files.push(x);
-
-              totFolders++;
-            } else {
-              files.push(x);
-
-              totFiles++;
-              totSpace += Number(x.size);
-            }
-          }
-        }
-      });
-
-      f0.shift();
-    } while (f0.length != 0);
-  }
-
-  return { files, totFolders, totFiles, totSpace };
-}

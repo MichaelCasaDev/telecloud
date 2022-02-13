@@ -7,6 +7,7 @@ import { openSync, read, remove, statSync } from "fs-extra";
 import { isNameAvailable } from "../../../lib/isNameAvailable";
 import * as configX from "../../../config";
 import { v4 as uuidv4 } from "uuid";
+import { ObjectId } from "mongodb";
 
 module.exports = {
   path: "/api/file/upload",
@@ -14,7 +15,7 @@ module.exports = {
     const options = {
       autoFields: true,
       autoFiles: true,
-      uploadDir: "/Users/michaelcasa/Desktop/GitHub/telecloud-api/tmp", // Define a custom folder where save temporary files during upload
+      uploadDir: "/Users/michaelcasa/Desktop/GitHub/telecloud/apps/api/tmp", // Define a custom folder where save temporary files during upload
     };
 
     // Promise everything to way until all datas are uploaded and processed
@@ -174,7 +175,7 @@ module.exports = {
           }
 
           // Limits based per subscription
-          const tmpNewUsage = user.bandwidth.monthUsage[0] + files.file[0].size;
+          const tmpNewUsage = user.bandwidth.monthlyUsage[0] + files.file[0].size;
           const maxGB =
             user.subscription.plan == "starter"
               ? 50000000000 // 50 GB
@@ -279,6 +280,24 @@ module.exports = {
               },
             }
           );
+
+          /* ####################### */
+          // Update global statistics
+          /* ####################### */
+
+          await db
+            .collection(configX.database.collections.statistics)
+            .updateOne(
+              {
+                _id: new ObjectId(configX.database.statisticsId),
+              },
+              {
+                $inc: {
+                  totalFiles: 1,
+                  totalBandwidth: chunks.size,
+                },
+              }
+            );
 
           // Update month usage
           const dbDate = new Date(user.bandwidth.lastUpdate);

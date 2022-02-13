@@ -560,7 +560,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
 
   useEffect(() => {
     if (me) {
-      setTheme(me.settings.darkMode ? "dark" : "light");
+      setTheme(me.settings.theme);
       setPreview(me.settings.filePreview);
     }
   }, [me]);

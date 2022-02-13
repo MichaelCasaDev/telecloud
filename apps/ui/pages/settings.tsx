@@ -340,7 +340,7 @@ export default function Page() {
               </Link>
             </p>
           </div>
-          <div className="center version">v. 1.0.0</div>
+          <div className="center version">{config.version}</div>
         </div>
       </div>
     </div>
