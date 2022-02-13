@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "dev": "nodemon index.ts",
+    "dev": "nodemon index.ts -p 8000",
     "start": "node build/index.ts",
     "build": "tsc --build"
   },

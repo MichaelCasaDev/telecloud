@@ -6,8 +6,10 @@ import { routeModuleInterface } from "./lib/types";
 import * as dotenv from "dotenv";
 
 // All global variables goes here
+const args = process.argv.slice(2);
+
 const app = express();
-const PORT: number = 8000;
+const PORT: number = Number(args[1]);
 const routes: string[] = [];
 
 // For ENV variables
