@@ -55,6 +55,16 @@
   cursor: pointer;
 
   margin-top: 2rem;
+
+  transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
+}
+
+#header .try:hover {
+  transform: translateY(-4px);
+  -webkit-box-shadow: 0px 8px 20px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 8px 20px 2px rgba(0, 0, 0, 0.3);
+
+  transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
 }
 
 #features {
@@ -76,6 +86,10 @@
   font-size: 20px;
   color: #4895ef;
   font-weight: 500;
+}
+
+#features .feature .description {
+  margin-top: 2rem;
 }
 
 @media only screen and (max-width: 900px) {

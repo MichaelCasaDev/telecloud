@@ -44,7 +44,7 @@
 
 .navbar #links #dashboard {
   position: absolute;
-  right: 0;
+  right: 2rem;
 }
 
 .navbar #links p {

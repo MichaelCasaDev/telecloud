@@ -33,7 +33,7 @@ export default function Page() {
             An <span className="alt">UNLIMITED</span> cloud storage based on
             Telegram!
           </p>
-          <Link href="http://localhost:3000">
+          <Link href="http://localhost:3000/login">
             <a className="try" target="_blank">
               Register now{" "}
               <Icon.ArrowRight
@@ -49,7 +49,7 @@ export default function Page() {
 
         <div id="features">
           <div className="feature">
-            <Icon.Box size={64} />
+            <Icon.Shield size={48} />
             <p className="title">Secure</p>
             <p className="description">
               All files are stored only on your Telegram account. Telecloud
@@ -57,7 +57,7 @@ export default function Page() {
             </p>
           </div>
           <div className="feature">
-            <Icon.Gift size={64} />
+            <Icon.Tag size={48} />
             <p className="title">Free</p>
             <p className="description">
               You can start using Telecloud just for free and upload how many
@@ -65,7 +65,7 @@ export default function Page() {
             </p>
           </div>
           <div className="feature">
-            <Icon.Cloud size={64} />
+            <Icon.Cloud size={48} />
             <p className="title">Unlimited</p>
             <p className="description">
               You can upload how much files you want from Megabytes to Terabytes
