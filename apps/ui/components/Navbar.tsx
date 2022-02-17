@@ -66,6 +66,20 @@ export default function Component({ position }: any) {
           </Link>
         </p>
         <p>
+          <Link href="/chats">
+            <a className={position == "chats" ? "selected" : ""}>
+              <Icon.MessageSquare
+                size={16}
+                style={{
+                  marginRight: "0.5rem",
+                  marginBottom: "-2px",
+                }}
+              />
+              Chats
+            </a>
+          </Link>
+        </p>
+        <p>
           <Link href="/settings">
             <a className={position == "settings" ? "selected" : ""}>
               <Icon.Settings

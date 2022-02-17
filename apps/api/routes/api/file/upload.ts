@@ -141,7 +141,6 @@ module.exports = {
         const fileX = files.file[0];
         const fileUuid = uuidv4();
 
-        const CHUNK_MAX_SIZE = 10000000; // 2GB (2000000000) - 10MB [for testing purposes] (10000000)
         let chunks = {
           telegramIds: [] as String[],
           size: files.file[0].size as Number,
@@ -190,12 +189,12 @@ module.exports = {
             // Uplaod file in chunks
             for await (const chunk of generateChunks(
               fileX.path,
-              CHUNK_MAX_SIZE
+              configX.CHUNK_MAX_SIZE
             )) {
               // Convert file to CustomFile for telegram upload
               const file = new CustomFile(
                 fileX.originalFilename +
-                  (files.file[0].size > CHUNK_MAX_SIZE
+                  (files.file[0].size > configX.CHUNK_MAX_SIZE
                     ? ".part" + chunks.telegramIds.length
                     : ""),
                 chunk.length,

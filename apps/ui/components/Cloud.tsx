@@ -53,11 +53,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
   const [selectedFilePreview, setSelectedFilePreview] = useState({} as any);
   const [showPreview, setShowPreview] = useState("error");
 
-  const [files, setFiles] = useState(
-    window.localStorage.getItem("files")
-      ? JSON.parse(window.localStorage.getItem("files") || "{}")
-      : []
-  );
+  const [files, setFiles] = useState([]);
 
   const [sortType, setSortType] = useState(cookies["sortType"] || "name");
   const [sortOrder, setSortOrder] = useState(cookies["sortOrder"] || "<");
@@ -540,7 +536,6 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
     }
 
     setFiles(json.data);
-    window.localStorage.setItem("files", JSON.stringify(json.data));
 
     const res1 = await fetch("http://localhost:8000/api/user/me", {
       method: "POST",
@@ -559,7 +554,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
   }
 
   useEffect(() => {
-    if (me) {
+    if (Object.keys(me).length > 0) {
       setTheme(me.settings.theme);
       setPreview(me.settings.filePreview);
     }

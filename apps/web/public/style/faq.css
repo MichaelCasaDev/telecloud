@@ -1,0 +1,29 @@
+#faq {
+  padding: 1rem 12rem;
+
+  margin-bottom: 4rem;
+}
+
+#faq .title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+#faq .question {
+  margin: 2rem 0;
+}
+
+#faq .question .title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+#faq .question .description {
+  font-size: 14px;
+}
+
+@media only screen and (max-width: 900px) {
+  #faq {
+    padding: 1rem;
+  }
+}

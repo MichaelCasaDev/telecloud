@@ -89,7 +89,9 @@ export default function Componenet({
       </div>
 
       <div id="preview">
-        {preview && showPreview == "yes" ? (
+        {preview &&
+        showPreview == "yes" &&
+        selectedFilePreview.size < 50000000 /* 50 Mb */ ? (
           <>
             {!config.notToPreview.includes(selectedFilePreview.type) ? (
               <>
@@ -143,6 +145,40 @@ export default function Componenet({
                 </p>
               </>
             )}
+          </>
+        ) : selectedFilePreview.size > 50000000 /* 50 Mb */ ? (
+          <>
+            <p>
+              This file is too big to preview{" "}
+              <span
+                style={{
+                  fontStyle: "italic",
+                }}
+              >
+                {">"} 50 Mb
+              </span>
+              !
+            </p>
+            <p
+              onClick={() => {
+                downloadFile(false, [selectedFilePreview]);
+              }}
+              style={{
+                cursor: "pointer",
+                padding: "1rem",
+                borderRadius: "10px",
+                background: "#4F5FFF",
+              }}
+            >
+              <Icon.Download
+                size={16}
+                style={{
+                  marginRight: "0.5rem",
+                  marginBottom: "-2px",
+                }}
+              />
+              Click here to download it!
+            </p>
           </>
         ) : (
           <>

@@ -81,9 +81,6 @@ export default function Modal_EditFileDestination({
           <div className="inputs">
             <p id="fileDestination">
               <p className="chat">
-                <p className="icon">
-                  <img src={`data:image/png;base64,${selected.img}`} />
-                </p>
                 <p className="name">{selected.name}</p>
                 <p
                   className="showMore"
@@ -116,9 +113,6 @@ export default function Modal_EditFileDestination({
                               setShowDestinations(false);
                             }}
                           >
-                            <p className="icon">
-                              <img src={`data:image/png;base64,${el.img}`} />
-                            </p>
                             <p className="name">{el.name}</p>
                           </p>
                         );

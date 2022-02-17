@@ -108,7 +108,7 @@ export default function Page() {
   }
 
   useEffect(() => {
-    if (me.settings.theme != null) {
+    if (Object.keys(me).length > 0) {
       setTheme(me.settings.theme);
     }
   }, [me]);

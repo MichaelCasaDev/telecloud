@@ -60,7 +60,6 @@ export async function createUserDatabase(
         fileDestination: {
           name: String("Saved messages"),
           id: String("me"),
-          img: String(config.images.savedMessages),
         },
         filePreview: Boolean(true),
       },

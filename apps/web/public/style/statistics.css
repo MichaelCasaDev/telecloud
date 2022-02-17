@@ -1,0 +1,44 @@
+#statistics {
+  padding: 1rem 12rem;
+
+  margin-bottom: 4rem;
+}
+
+#statistics .title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+#statistics .stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 0 20rem;
+}
+
+#statistics .stats .stat {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  align-items: center;
+
+  border-bottom: solid 1px #14171a;
+}
+
+#statistics .stats .stat .title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#statistics .stats .stat .data {
+  font-size: 16px;
+}
+
+@media only screen and (max-width: 1400px) {
+  #statistics, #statistics .stats {
+    padding: 1rem;
+  }
+}

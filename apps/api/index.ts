@@ -2,7 +2,7 @@ import bodyParser from "body-parser";
 import express from "express";
 import glob from "glob";
 import cors from "cors";
-import { routeModuleInterface } from "./lib/types";
+import { RouteModuleInterface } from "./lib/types";
 import * as dotenv from "dotenv";
 
 // All global variables goes here
@@ -25,7 +25,7 @@ app.use(bodyParser.json({ type: "application/json" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "http://localhost:3001"],
     methods: ["GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"],
     exposedHeaders: ["*"],
     credentials: true,
@@ -35,7 +35,7 @@ app.use(
 // Create all routes
 glob("routes/**/*.ts", {}, function (err, files) {
   for (const x of files) {
-    const routeModule: routeModuleInterface = require("./" + x);
+    const routeModule: RouteModuleInterface = require("./" + x);
 
     // Check for duplicated routes
     if (!routes.includes(routeModule.path)) {

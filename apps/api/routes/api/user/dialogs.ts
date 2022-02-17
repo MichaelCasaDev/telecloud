@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
-import { connectToDatabase } from "../../../lib/database";
 import { telegramClientLogin, isAuthorized } from "../../../lib/telegram";
-import { Api } from "telegram";
 import { asyncForEach } from "../../../lib/utils";
-import { images } from "../../../config";
 
 module.exports = {
   path: "/api/user/dialogs",
@@ -35,7 +32,6 @@ module.exports = {
           {
             name: "Saved messages",
             id: "me",
-            img: images.savedMessages,
           },
         ];
 
@@ -47,9 +43,6 @@ module.exports = {
             Number(chat.entity.id) !=
               Number(((await telegramClient.getMe()) as any).id)
           ) {
-            const buff = await telegramClient.downloadProfilePhoto(chat.entity);
-            const base64 = buff.toString("base64");
-
             chats.push({
               name:
                 "@" + (chat.entity as any).username != "@null"
@@ -58,7 +51,6 @@ module.exports = {
                     " " +
                     ((chat.entity as any).lastName || ""),
               id: chat.entity.id,
-              img: buff.length != 0 ? base64 : images.noImg,
             });
           }
         });

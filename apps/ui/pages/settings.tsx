@@ -134,7 +134,7 @@ export default function Page() {
   }, []);
 
   useEffect(() => {
-    if (loaded && me.settings.theme != null) {
+    if (loaded && Object.keys(me).length > 0) {
       setTheme(me.settings.theme);
     }
   }, [me]);

@@ -44,23 +44,6 @@ module.exports = {
         });
       }
 
-      // Merge different chunks of file into one
-      let arrayBuff: Buffer[] = [];
-
-      for await (const telegramId of file.telegramIds) {
-        // Get file message from telegram
-        const result = await telegramClient.getMessages("me", {
-          ids: [Number(telegramId)],
-        });
-
-        if (result[0].media) {
-          // Download the file from telegram
-          const buff = await telegramClient.downloadMedia(result[0].media, {});
-
-          arrayBuff.push(buff);
-        }
-      }
-
       // Download the file from telegram
       const fileName = file.name.replaceAll(
         /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
@@ -74,13 +57,30 @@ module.exports = {
           )
         : null;
 
-      // Send the file to the client (as an attachment)
-      return res
+      res
         .status(200)
         .setHeader("File-Name", fileName)
         .setHeader("Content-Type", file.type)
-        .setHeader("Content-Length", file.size)
-        .send(Buffer.concat(arrayBuff));
+        .setHeader("Content-Length", file.size);
+
+      // Merge different chunks of file into one
+      for await (const telegramId of file.telegramIds) {
+        // Get file message from telegram
+        const result = await telegramClient.getMessages("me", {
+          ids: [Number(telegramId)],
+        });
+
+        if (result[0].media) {
+          // Download the file from telegram
+          const buff = await telegramClient.downloadMedia(result[0].media, {});
+
+          // Push data to response
+          res.write(buff);
+        }
+      }
+
+      // Send the file to the client (as an attachment)
+      return res.end();
     } catch (err) {
       return res
         .status(200)

@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Account from "../components/Account";
-import { GetServerSidePropsContext } from "next";
 import { checkAuth } from "../lib/checkAuth";
+import { GetServerSidePropsContext } from "next";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useTheme } from "next-themes";
@@ -49,16 +49,19 @@ export default function Page() {
   return (
     <div>
       <Head>
-        <title>Telecloud</title>
+        <title>Telecloud | Chats</title>
+        <link rel="stylesheet" href="/style/chats.css" />
       </Head>
 
-      <Navbar position="" />
+      <Navbar position="shares" />
 
       <div className="container">
         <div id="header">
-          <h1>Telecloud</h1>
+          <h1>Chats</h1>
           <Account />
         </div>
+
+        <div id="sharesBox"></div>
       </div>
     </div>
   );

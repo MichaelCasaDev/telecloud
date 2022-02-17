@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import "../styles/globals.css";
+import "../styles/navbar.css";
+import "../styles/footer.css";
 
 function MyApp({ Component, pageProps }: any) {
   const [mounted, setMounted] = useState(false);

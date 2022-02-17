@@ -1,0 +1,203 @@
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/router";
+import * as Icon from "react-feather";
+import Link from "next/link";
+
+export default function Page() {
+  const [mounted, setMounted] = useState(false);
+  const pricing = [
+    {
+      id: "starter",
+      title: "Starter",
+      logo: "/img/logo.svg",
+      popular: false,
+      description:
+        "For everyone experiencing a new UNLIMITED cloud experience.",
+      price: {
+        month: "Free",
+        year: "Free",
+        yearFull: "Free",
+      },
+      features: [
+        "Unlimited cloud storage (max 2GB per file)",
+        "Upload limited bandwidth 50 GB/month",
+        "Files preview and sharing",
+        "Community support",
+      ],
+    },
+    {
+      id: "premium",
+      title: "Premium",
+      logo: "/img/logo.svg",
+      popular: true,
+      description: "Advanced features come in.",
+      price: {
+        month: "5$",
+        year: "50$",
+        yearFull: "60$",
+      },
+      features: [
+        "All from Starter plan",
+        "Upload limited bandwidth 200 GB/month",
+        "Upload file bigger than 2 GB",
+        "Premium support",
+      ],
+    },
+    {
+      id: "unlimited",
+      title: "Unlimited",
+      logo: "/img/logo.svg",
+      popular: false,
+      description: "The true power of Telecloud",
+      price: {
+        month: "20$",
+        year: "200$",
+        yearFull: "240$",
+      },
+      features: [
+        "All from Premium plan",
+        "Upload unlimited bandwidth",
+        "Cloud sharing (Coming soon...)",
+      ],
+    },
+  ];
+
+  const [cookies, setCookies] = useCookies();
+  const [sortType, setSortType] = useState("month");
+
+  const router = useRouter();
+
+  async function loadData() {}
+
+  // When mounted on client, now we can show the UI
+  useEffect(() => {
+    setMounted(true);
+    loadData();
+  }, []);
+  if (!mounted) return null;
+
+  return (
+    <div>
+      <Head>
+        <title>Telecloud | Pricing</title>
+        <link rel="stylesheet" href="/style/pricing.css" />
+      </Head>
+
+      <Navbar />
+
+      <div className="container">
+        <div id="pricing">
+          <p className="title">Pricing</p>
+          <div className="divider"></div>
+
+          <div id="priceSwitch">
+            <p id="how">How often do you want to pay?</p>
+            <div>
+              <p
+                className={sortType == "month" ? "selected" : ""}
+                onClick={() => setSortType("month")}
+              >
+                Monthly
+              </p>
+              <p
+                className={sortType == "year" ? "selected" : ""}
+                onClick={() => setSortType("year")}
+              >
+                Yearly
+                <span id="yearly">
+                  <Icon.Tag
+                    size={14}
+                    style={{
+                      marginBottom: "-2px",
+                      marginRight: "5px",
+                      stroke:
+                        "linear-gradient(-70deg, #9867f0 0%, #ed4e50 100%)",
+                    }}
+                  />
+                  Get 2 months free
+                </span>
+              </p>
+            </div>
+          </div>
+          <div id="pricingBox">
+            {pricing.map((e: any, i: number) => {
+              return (
+                <div className="plan">
+                  <div className="top">
+                    <p>
+                      <img src={e.logo} />
+                    </p>
+                    <p className="title">{e.title}</p>
+                    <p className="description">{e.description}</p>
+                  </div>
+                  <div className="main">
+                    <div className="priceBox">
+                      <p className="price">
+                        <p className="big">
+                          {sortType == "month" ? e.price.month : e.price.year}
+                        </p>
+                        <p className="small">
+                          {e.id != "starter"
+                            ? sortType == "year"
+                              ? e.price.yearFull
+                              : ""
+                            : ""}
+                        </p>
+                      </p>
+                      <p className="update">
+                        {e.id != "starter"
+                          ? sortType == "month"
+                            ? "per month"
+                            : "per year"
+                          : "forever"}
+                      </p>
+                    </div>
+                    <Link href="http://localhost:3000">
+                      <a
+                        className="button"
+                        target="_blank"
+                        style={{
+                          display: "block",
+                        }}
+                      >
+                        Get started
+                      </a>
+                    </Link>
+
+                    <div>
+                      <div className="features">
+                        {(e.features as string[]).map(
+                          (x: string, i: number) => {
+                            return (
+                              <p className="feature">
+                                <Icon.Check size={16} />
+                                <p>{x}</p>
+                              </p>
+                            );
+                          }
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <p id="bottomText">
+            *Your card will be automatically charged when your subscription end
+            if you haven't disabled it yet.
+            <br />
+            When upgrade or downgrade to a new subscription your active plan
+            will stop working immediately and will be changed to the new one!
+          </p>
+        </div>
+      </div>
+
+      <Footer />
+    </div>
+  );
+}

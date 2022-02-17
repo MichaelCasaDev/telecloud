@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import Stripe from "stripe";
 import { TelegramClientParams } from "telegram/client/telegramBaseClient";
 
 export interface TelegramAuthType {
@@ -17,7 +18,12 @@ export interface DatabaseAuthType {
   statisticsId: string;
 }
 
-export interface routeModuleInterface {
+export interface RouteModuleInterface {
   path: string;
   handler: (req: Request, res: Response) => Promise<void>;
+}
+
+export interface StripeInterface {
+  apiKey: string;
+  configuration: Stripe.StripeConfig
 }
