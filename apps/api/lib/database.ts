@@ -51,9 +51,16 @@ export async function createUserDatabase(
       isBanned: Boolean(false),
       files: [],
       usage: {
-        totFiles: Number(0),
-        totFolders: Number(0),
-        totSpace: Number(0),
+        now: {
+          files: Number(0),
+          folders: Number(0),
+          space: Number(0),
+        },
+        total: {
+          files: Number(0),
+          folders: Number(0),
+          space: Number(0),
+        },
       },
       settings: {
         theme: String("system"),

@@ -16,7 +16,6 @@ import Modal_EditFileDestination from "../components/modals/EditFileDestination"
 
 export default function Page() {
   const { theme, setTheme } = useTheme();
-  const [loaded, setLoaded] = useState(false);
 
   const [show, setShow] = useState("error");
   const [showEdit, setShowEdit] = useState("error");
@@ -43,7 +42,6 @@ export default function Page() {
 
     setMe(json.data);
     window.localStorage.setItem("me", JSON.stringify(json.data));
-    setLoaded(true);
   }
 
   async function deleteAllUserDatas() {
@@ -134,12 +132,10 @@ export default function Page() {
   }, []);
 
   useEffect(() => {
-    if (loaded && Object.keys(me).length > 0) {
+    if (Object.keys(me).length > 0) {
       setTheme(me.settings.theme);
     }
   }, [me]);
-
-  if (!loaded) return null;
 
   return (
     <div>
@@ -308,7 +304,12 @@ export default function Page() {
 
           <p className="divider" />
 
-          <div className="center">
+          <div
+            className="center"
+            style={{
+              marginBottom: "0",
+            }}
+          >
             <p className="button logout">
               <Link href="/logout">
                 <a>
@@ -336,6 +337,20 @@ export default function Page() {
                     }}
                   />
                   Back to Dashboard
+                </a>
+              </Link>
+            </p>
+            <p>
+              <Link href="http://localhost:3001">
+                <a target="_blank">
+                  <Icon.Globe
+                    size={16}
+                    style={{
+                      marginBottom: "-2px",
+                      marginRight: "10px",
+                    }}
+                  />
+                  Check our website
                 </a>
               </Link>
             </p>

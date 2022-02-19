@@ -63,7 +63,7 @@ export default function Page() {
           <div className="divider"></div>
           <div className="stats">
             <div className="stat">
-              <p className="title">Total new users</p>
+              <p className="title">Total users</p>
               <p className="data">{data.totalUsers}</p>
             </div>
             <div className="stat">

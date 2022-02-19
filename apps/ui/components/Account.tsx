@@ -43,7 +43,7 @@ export default function Component() {
       <Head>
         <link rel="stylesheet" href="/style/account.css" />
       </Head>
-      <Link href="/settings">
+      <Link href="/">
         <img src={img} alt="" />
       </Link>
     </div>

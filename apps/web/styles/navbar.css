@@ -2,7 +2,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  width: calc(100% - 2rem);
+  width: calc(100% - 3rem);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -195,4 +195,8 @@
       opacity: 1;
     }
   }
+}
+
+[data-theme="dark"] .navbar {
+  background-color: rgba(87, 87, 87, 0.1);
 }

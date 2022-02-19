@@ -10,6 +10,7 @@ import * as config from "../config";
 import * as Icon from "react-feather";
 import { useRouter } from "next/router";
 import classNames from "classnames";
+import Modal_ConfirmStarter from "../components/modals/ConfirmStarter";
 
 export default function Page() {
   const pricing = [
@@ -72,6 +73,11 @@ export default function Page() {
   const [mounted, setMounted] = useState(false);
   const [cookies, setCookies] = useCookies();
   const [sortType, setSortType] = useState("month");
+  const [show, setShow] = useState("error");
+  const [data, setData] = useState({
+    plan: "",
+    type: "",
+  });
 
   const router = useRouter();
 
@@ -80,7 +86,22 @@ export default function Page() {
     JSON.parse(window.localStorage.getItem("me") || "{}")
   );
 
-  async function makeSubscription(plan: string, type: string) {
+  async function makeSubscription(
+    plan: string,
+    type: string,
+    confirmed?: boolean
+  ) {
+    if (plan == "starter" && !confirmed) {
+      setData({
+        plan,
+        type,
+      });
+
+      setShow("yes");
+
+      return;
+    }
+
     router.replace(
       "http://localhost:8000/api/stripe/create-checkout-session?plan=" +
         plan +
@@ -128,7 +149,14 @@ export default function Page() {
         <link rel="stylesheet" href="/style/pricing.css" />
       </Head>
 
-      <Navbar position="pricing" />
+      <Navbar position="" />
+
+      <Modal_ConfirmStarter
+        show={show}
+        data={data}
+        onClose={() => setShow("no")}
+        onConfirmHandler={makeSubscription}
+      />
 
       <div className="container">
         <div id="header">
@@ -216,7 +244,11 @@ export default function Page() {
                           : me.subscription.plan == e.id &&
                             me.subscription.type == sortType
                           ? null
-                          : makeSubscription(e.id, sortType);
+                          : makeSubscription(
+                              e.id,
+                              sortType,
+                              me.subscription.plan == "starter"
+                            );
                       }}
                     >
                       {me.subscription.plan == "starter" &&

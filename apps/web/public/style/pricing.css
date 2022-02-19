@@ -219,3 +219,7 @@
     margin: 1rem 0;
   }
 }
+
+[data-theme="dark"] #priceSwitch div p.selected {
+  background-color: #555555;
+}

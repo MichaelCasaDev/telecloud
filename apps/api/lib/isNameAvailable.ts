@@ -18,7 +18,7 @@ export async function isNameAvailable(
       uuid: String(e.uuid),
     });
 
-    const isFolder0: boolean = fileA.isFolder;
+    const isFolder0: boolean = fileA.type == "telecloud/folder";
 
     if (
       (fileA.name == name && e.path == path && isFolder0 && isFolder) || // For files

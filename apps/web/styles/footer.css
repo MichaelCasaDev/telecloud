@@ -4,10 +4,12 @@
   justify-content: center;
   text-align: center;
 
-  background-color: rgb(240, 240, 240);
+  background-color: rgba(175, 175, 175, 0.1);
   color: #14171a;
 
-  margin: -1rem;
+  border-radius: 10px;
+
+  margin: 0;
   padding: 2rem;
 
   font-size: 14px;
@@ -56,4 +58,9 @@
   #footer .sections .section {
     margin-bottom: 2rem;
   }
+}
+
+[data-theme="dark"] #footer {
+  color: white;
+  background-color: rgba(87, 87, 87, 0.1);
 }

@@ -50,7 +50,7 @@ module.exports = {
         await telegramClient.invoke(new Api.auth.LogOut());
 
         // Delete customer from Stripe
-        await stripeClient.customers.del(result.subscription.stripeCustomerId);
+        await stripeClient.customers.del(result.subscription.stripeId);
 
         return res.status(200).json({
           stringSession: telegramClient.session.save(),

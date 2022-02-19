@@ -52,7 +52,7 @@ export default function Component({ position }: any) {
           </Link>
         </p>
         <p>
-          <Link href="/shares">
+          <Link href="">
             <a className={position == "shares" ? "selected" : ""}>
               <Icon.Share2
                 size={16}
@@ -61,12 +61,12 @@ export default function Component({ position }: any) {
                   marginBottom: "-2px",
                 }}
               />
-              Shares
+              Shares (Soon)
             </a>
           </Link>
         </p>
         <p>
-          <Link href="/chats">
+          <Link href="">
             <a className={position == "chats" ? "selected" : ""}>
               <Icon.MessageSquare
                 size={16}
@@ -75,7 +75,7 @@ export default function Component({ position }: any) {
                   marginBottom: "-2px",
                 }}
               />
-              Chats
+              Chats (Soon)
             </a>
           </Link>
         </p>

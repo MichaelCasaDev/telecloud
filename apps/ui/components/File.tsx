@@ -22,7 +22,7 @@ export default function Component({
 
   selectAll: any;
 }) {
-  const { isFolder, name, size, lastEdit, type, uuid } = file;
+  const { name, size, lastEdit, type, uuid } = file;
   const baseType = type.split("/")[0];
 
   const [selected, setSelected] = useState(false);
@@ -36,7 +36,11 @@ export default function Component({
   return (
     <>
       <div
-        className={classNames("file", selected ? "selected" : "", selected ? "useThisFile" : "")}
+        className={classNames(
+          "file",
+          selected ? "selected" : "",
+          selected ? "useThisFile" : ""
+        )}
         id={uuid}
         onContextMenu={(e) => {
           onContextMenu(e);
@@ -48,7 +52,7 @@ export default function Component({
         onDragEnd={(e) => {
           e.currentTarget.classList.remove("useThisFile");
         }}
-        data-isFolder={isFolder}
+        data-isFolder={type == "telecloud/folder"}
         data-uri={encodeURI(name)}
         data-file={JSON.stringify(file)}
         draggable={true}
@@ -59,7 +63,7 @@ export default function Component({
         >
           {selected ? <Icon.XSquare size={16} /> : <Icon.Square size={16} />}
         </p>
-        {isFolder ? (
+        {type == "telecloud/folder" ? (
           <Link href={router.asPath + "/" + encodeURI(name)}>
             <a id="iconName">
               <p id="icon">
@@ -119,7 +123,9 @@ export default function Component({
           </a>
         )}
 
-        <p id="size">{formatSizeUnits(size)}</p>
+        <p id="size">
+          {type == "telecloud/folder" ? "-" : formatSizeUnits(size)}
+        </p>
         <p id="date">{formatDate(lastEdit)}</p>
       </div>
     </>

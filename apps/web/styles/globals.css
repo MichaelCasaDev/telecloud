@@ -45,3 +45,14 @@ a {
   border-radius: 10px;
   border-top: 1px solid #acacac;
 }
+
+[data-theme="dark"] html,
+[data-theme="dark"] body,
+[data-theme="dark"] .container {
+  color: white;
+  background-color: #14171a;
+}
+
+[data-theme="dark"] .divider {
+  border-color: #555555;
+}

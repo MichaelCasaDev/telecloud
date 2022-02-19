@@ -19,7 +19,7 @@ export function formatSizeUnits(bytes: any) {
   } else if (bytes == 1) {
     bytes = bytes + " byte";
   } else {
-    bytes = "-";
+    bytes = "0 GB";
   }
   return bytes;
 }
@@ -60,9 +60,7 @@ export function formatDate(date: string) {
   var dd = d < 10 ? "0" + d : d;
   var yyyy = lDate.getFullYear();
   var mon = eval(String(lDate.getMonth() + 1));
-  var mm = mon < 10 ? "0" + mon : mon;
   var monthName = month[lDate.getMonth()];
-  var weekdayName = weekday[lDate.getDay()];
 
   return (
     dd +

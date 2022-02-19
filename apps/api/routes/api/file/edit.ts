@@ -39,7 +39,7 @@ module.exports = {
         uuid: String(uuid),
       });
 
-    if (file.isFolder) {
+    if (file.type == "telecloud/folder") {
       return res.status(500).json({
         stringSession: telegramClient.session.save(),
         err: "Renaming folder is not possible at the moment",

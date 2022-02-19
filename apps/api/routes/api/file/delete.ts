@@ -33,7 +33,7 @@ module.exports = {
       });
 
     // A Folder
-    if (file && file.isFolder) {
+    if (file && file.type == "telecloud/folder") {
       const user: any = await db
         .collection(config.database.collections.users)
         .findOne({
@@ -76,7 +76,7 @@ module.exports = {
         );
 
         // Finally delete files from telegram
-        if (!fileX.isFolder) {
+        if (fileX.type != "telecloud/folder") {
           for await (const telegramId of fileX.telegramIds) {
             await telegramClient.invoke(
               new Api.messages.DeleteMessages({
@@ -97,26 +97,11 @@ module.exports = {
         },
         {
           $set: {
-            usage: {
-              totFiles: String(Number(user.usage.totFiles) - totFiles),
-              totFolders: String(Number(user.usage.totFolders) - totFolders),
-              totSpace: String(Number(user.usage.totSpace) - totSpace),
-            },
-          },
-        }
-      );
-
-      /* ####################### */
-      // Update global statistics
-      /* ####################### */
-
-      await db.collection(config.database.collections.statistics).updateOne(
-        {
-          _id: new ObjectId(config.database.statisticsId),
-        },
-        {
-          $inc: {
-            totalFiles: -totFiles,
+            "usage.now.files": String(Number(user.usage.now.files) - totFiles),
+            "usage.now.folders": String(
+              Number(user.usage.now.folders) - totFolders
+            ),
+            "usage.now.space": String(Number(user.usage.now.space) - totSpace),
           },
         }
       );
@@ -168,11 +153,10 @@ module.exports = {
         },
         {
           $set: {
-            usage: {
-              totFiles: String(Number(user.usage.totFiles) - 1),
-              totFolders: String(Number(user.usage.totFolders)),
-              totSpace: String(Number(user.usage.totSpace) - Number(file.size)),
-            },
+            "usage.now.files": String(Number(user.usage.now.files) - 1),
+            "usage.now.space": String(
+              Number(user.usage.now.space) - Number(file.size)
+            ),
           },
         }
       );

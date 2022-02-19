@@ -37,7 +37,7 @@ module.exports = {
         });
 
       // TODO: Implement support to download folders (need to zip files and then send to the client)
-      if (file.isFolder) {
+      if (file.type == "telecloud/folder") {
         return res.status(500).json({
           stringSession: telegramClient.session.save(),
           err: "Cannot download folders at the moment",

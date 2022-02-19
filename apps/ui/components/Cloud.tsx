@@ -106,7 +106,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
               type: toast.TYPE.ERROR,
               render:
                 "Error while deleting a " +
-                (el.isFolder ? "folder" : "file") +
+                (el.type == "telecloud/folder" ? "folder" : "file") +
                 "",
               position: "top-right",
               autoClose: 5000,
@@ -143,7 +143,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
     setShowPreview("no");
 
     const toastId = toast.loading(
-      "Renaming a " + (el.isFolder ? "folder" : "file") + ".",
+      "Renaming a " + (el.type == "telecloud/folder" ? "folder" : "file") + ".",
       {
         position: "top-right",
         autoClose: false,
@@ -193,7 +193,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
             type: toast.TYPE.ERROR,
             render:
               "A " +
-              (el.isFolder ? "folder" : "file") +
+              (el.type == "telecloud/folder" ? "folder" : "file") +
               " with this name already exists!",
             position: "top-right",
             autoClose: 5000,
@@ -253,7 +253,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
               type: toast.TYPE.ERROR,
               render:
                 "Error while downloading a " +
-                (el.isFolder ? "folder" : "file") +
+                (el.type == "telecloud/folder" ? "folder" : "file") +
                 "",
               position: "top-right",
               autoClose: 5000,
@@ -448,7 +448,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
       await axios
         .post("http://localhost:8000/api/file/upload", formData)
         .then(() => {
-          if (data.isFolder) {
+          if (data.type == "telecloud/folder") {
             toast.update(data.toastId, {
               type: toast.TYPE.SUCCESS,
               render: "Folder created!",
@@ -668,6 +668,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
           <p
             style={{
               width: "100%",
+              margin: "0",
             }}
           >
             <h1>Cloud</h1>
@@ -739,7 +740,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
 
             // Move files with drag-and-drop
             if (
-              (e.target as any).dataset.isfolder == "true" // Move to a folder
+              (e.target as any).dataset.isFolder == "true" // Move to a folder
             ) {
               // Get files dragged and selected
               const arr: any[] = [];
@@ -783,9 +784,10 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
                             : e.screenX - 160,
                         y: e.screenY,
                         file: file,
-                        path: file.isFolder
-                          ? path + encodeURI(file.name)
-                          : path,
+                        path:
+                          file.type == "telecloud/folder"
+                            ? path + encodeURI(file.name)
+                            : path,
                       });
 
                       // Get files selected

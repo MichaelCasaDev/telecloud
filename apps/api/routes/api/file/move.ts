@@ -191,13 +191,10 @@ module.exports = {
             },
             {
               $set: {
-                usage: {
-                  totFiles: String(Number(user.usage.totFiles) + 1),
-                  totFolders: String(Number(user.usage.totFolders)),
-                  totSpace: String(
-                    Number(user.usage.totSpace) + Number(result.size)
-                  ),
-                },
+                "usage.now.files": String(Number(user.usage.now.files) + 1),
+                "usage.now.space": String(
+                  Number(user.usage.now.space) + Number(result.size)
+                ),
               },
             }
           );

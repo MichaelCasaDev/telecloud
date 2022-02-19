@@ -27,7 +27,7 @@ export async function filesFromPath(
       });
 
       if (x) {
-        if (x.isFolder) {
+        if (x.type == "telecloud/folder") {
           f0.push(x);
           files.push(x);
 
@@ -59,7 +59,7 @@ export async function filesFromPath(
             });
 
           if (x) {
-            if (x.isFolder) {
+            if (x.type == "telecloud/folder") {
               f0.push(x);
               i++;
               files.push(x);

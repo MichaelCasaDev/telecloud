@@ -11,8 +11,6 @@
   padding: 4rem;
 
   background-color: white;
-
-  border-right: solid 1px rgb(204, 204, 204);
 }
 
 .navbar a {
@@ -116,7 +114,8 @@
     cursor: pointer;
   }
 
-  .navbar a, .navbar a img {
+  .navbar a,
+  .navbar a img {
     width: 32px;
   }
 
@@ -129,7 +128,7 @@
 
     color: rgb(92, 92, 92);
 
-    width: 100%;
+    width: calc(100% - 2rem);
     z-index: 10;
     text-align: left;
 
@@ -137,7 +136,7 @@
 
     position: absolute;
     top: 1rem;
-    left: 0;
+    left: 1rem;
     margin: 0;
   }
 
@@ -227,30 +226,24 @@
       opacity: 1;
     }
   }
-
 }
 
 /* ################### */
 /* Dark Mode */
 /* ################### */
 
-[data-theme='dark'],
-[data-theme='dark'] .navbar,
-[data-theme='dark'] .navbar #links,
-[data-theme='dark'] .navbar #links .selected {
-  background-color: #14171A;
+[data-theme="dark"],
+[data-theme="dark"] .navbar,
+[data-theme="dark"] .navbar #links,
+[data-theme="dark"] .navbar #links .selected {
+  background-color: #14171a;
   color: white;
 }
 
-[data-theme='dark'] .navbar {
-  border-right: solid 1px #1e2227;
+[data-theme="dark"] .navbar #links {
+  color: #aab8c2;
 }
 
-
-[data-theme='dark'] .navbar #links {
-  color: #AAB8C2;
-}
-
-[data-theme='dark'] .navbar #links p:hover {
+[data-theme="dark"] .navbar #links p:hover {
   color: white;
 }

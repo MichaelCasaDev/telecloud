@@ -68,12 +68,11 @@ module.exports = {
             // Create file in the database
             await db.collection(configX.database.collections.files).insertOne({
               uuid: String(fileUuid),
-              telegramId: String("-"),
+              telegramIds: [String("-")],
               name: String(name[0]),
-              size: String("0"),
-              type: String("-"),
+              size: String("-"),
+              type: String("telecloud/folder"),
               lastEdit: String(lastEdit),
-              isFolder: Boolean(true),
             });
 
             // Update users files list in the database
@@ -106,11 +105,12 @@ module.exports = {
               },
               {
                 $set: {
-                  usage: {
-                    totFiles: String(Number(user.usage.totFiles)),
-                    totFolders: String(Number(user.usage.totFolders) + 1),
-                    totSpace: String(Number(user.usage.totSpace)),
-                  },
+                  "usage.now.folders": String(
+                    Number(user.usage.now.folders) + 1
+                  ),
+                  "usage.total.folders": String(
+                    Number(user.usage.total.folders) + 1
+                  ),
                 },
               }
             );
@@ -174,7 +174,8 @@ module.exports = {
           }
 
           // Limits based per subscription
-          const tmpNewUsage = user.bandwidth.monthlyUsage[0] + files.file[0].size;
+          const tmpNewUsage =
+            user.bandwidth.monthlyUsage[0] + files.file[0].size;
           const maxGB =
             user.subscription.plan == "starter"
               ? 50000000000 // 50 GB
@@ -242,7 +243,6 @@ module.exports = {
             parts: String(chunks.telegramIds.length),
             type: String(fileX.headers["content-type"]),
             lastEdit: String(lastEdit[0]),
-            isFolder: Boolean(false),
           });
 
           // Update users files list in the database
@@ -269,13 +269,14 @@ module.exports = {
             },
             {
               $set: {
-                usage: {
-                  totFiles: String(Number(user.usage.totFiles) + 1),
-                  totFolders: String(Number(user.usage.totFolders)),
-                  totSpace: String(
-                    Number(user.usage.totSpace) + Number(chunks.size)
-                  ),
-                },
+                "usage.now.files": String(Number(user.usage.now.files) + 1),
+                "usage.now.space": String(
+                  Number(user.usage.now.space) + Number(chunks.size)
+                ),
+                "usage.total.files": String(Number(user.usage.total.files) + 1),
+                "usage.total.space": String(
+                  Number(user.usage.total.space) + Number(chunks.size)
+                ),
               },
             }
           );
@@ -313,7 +314,7 @@ module.exports = {
               },
               {
                 $push: {
-                  "bandwidth.monthUsage": {
+                  "bandwidth.monthlyUsage": {
                     $each: [Number(chunks.size)],
                     $position: 0,
                   },
@@ -330,7 +331,7 @@ module.exports = {
               },
               {
                 $inc: {
-                  "bandwidth.monthUsage.0": Number(chunks.size),
+                  "bandwidth.monthlyUsage.0": Number(chunks.size),
                 },
                 $set: {
                   "bandwidth.lastUpdate": Number(nowDate.getTime()),
