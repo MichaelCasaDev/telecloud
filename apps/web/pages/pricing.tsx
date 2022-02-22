@@ -93,6 +93,7 @@ export default function Page() {
         <div id="pricing">
           <p className="title">Pricing</p>
           <div className="divider"></div>
+          <p>THIS PAGE IS ONLY FOR TESTING (REAL PRICES and FEATURES MAY VARY)</p>
 
           <div id="priceSwitch">
             <p id="how">How often do you want to pay?</p>
@@ -195,9 +196,9 @@ export default function Page() {
             will stop working immediately and will be changed to the new one!
           </p>
         </div>
-      </div>
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 }

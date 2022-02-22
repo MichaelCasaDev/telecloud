@@ -13,13 +13,6 @@ function MyApp({ Component, pageProps }: any) {
   }, []);
   if (!mounted) return null;
 
-  let theme = window.localStorage.getItem("theme") == "dark";
-
-  // Check for theme changes every 1000 ms
-  setInterval(() => {
-    theme = window.localStorage.getItem("theme") == "dark";
-  }, 1000);
-
   return (
     <ThemeProvider
       defaultTheme="light"
@@ -37,7 +30,7 @@ function MyApp({ Component, pageProps }: any) {
         draggable
         pauseOnHover={false}
         limit={3}
-        theme={theme ? "dark" : "light"}
+        theme={"light"}
       />
       <Component {...pageProps} />
     </ThemeProvider>

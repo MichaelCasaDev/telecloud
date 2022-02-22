@@ -41,10 +41,7 @@ export default function Footer() {
           <p className="title">Socials</p>
 
           <Link href="https://twitter.com/MichaelCasaDev">
-            <a target="_blank">MichaelCasaDev</a>
-          </Link>
-          <Link href="https://twitter.com/MichaelCasaDev">
-            <a target="_blank">MichaelCasaDev</a>
+            <a target="_blank">MichaelCasaDev (Creator)</a>
           </Link>
         </div>
       </div>

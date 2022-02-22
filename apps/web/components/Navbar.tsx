@@ -34,6 +34,11 @@ export default function Navbar() {
         </button>
 
         <p>
+          <Link href="/">
+            <a>Home</a>
+          </Link>
+        </p>
+        <p>
           <Link href="/faq">
             <a>FAQ</a>
           </Link>

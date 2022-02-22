@@ -2,7 +2,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  width: calc(100% - 3rem);
+  width: calc(100% - 2rem);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -148,6 +148,10 @@
     margin-top: 0.6rem;
 
     color: #4895ef;
+  }
+
+  [data-theme="dark"] .navbar #links {
+    background-color: rgb(37, 37, 37);
   }
 
   @-webkit-keyframes slide-inA {
