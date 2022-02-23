@@ -36,7 +36,7 @@ export default function Page() {
     } else if (bytes == 1) {
       bytes = bytes + " byte";
     } else {
-      bytes = "-";
+      bytes = "0 GB";
     }
     return bytes;
   }

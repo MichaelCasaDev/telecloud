@@ -52,7 +52,7 @@ export default function Page() {
               A: We would never have access to your saved files. All of your
               uploaded files to Telecloud would stay only on your Telegram
               account (on your Saved Messages by default, so anyone excepted you
-              can access it!)
+              can't access it)
             </p>
           </div>
           <div className="question">
@@ -61,7 +61,7 @@ export default function Page() {
               A: Telecloud uses the Telegram authentication flow, so no datas
               are stored on our system. All the files you upload will be
               directly send to your Telegram account and saved ONLY there. We
-              use the Telegram API to manage files (upload - download).
+              use the Telegram API to manage files and authentication.
             </p>
           </div>
           <div className="question">
