@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 import * as Icon from "react-feather";
+import * as config from "../config";
 import Link from "next/link";
 
 export default function Page() {
@@ -93,7 +94,9 @@ export default function Page() {
         <div id="pricing">
           <p className="title">Pricing</p>
           <div className="divider"></div>
-          <p>THIS PAGE IS ONLY FOR TESTING (REAL PRICES and FEATURES MAY VARY)</p>
+          <p>
+            THIS PAGE IS ONLY FOR TESTING (REAL PRICES and FEATURES MAY VARY)
+          </p>
 
           <div id="priceSwitch">
             <p id="how">How often do you want to pay?</p>
@@ -157,7 +160,7 @@ export default function Page() {
                           : "forever"}
                       </p>
                     </div>
-                    <Link href="http://localhost:3000">
+                    <Link href={config.uiEndpoint}>
                       <a
                         className="button"
                         target="_blank"

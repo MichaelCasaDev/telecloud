@@ -42,7 +42,7 @@ module.exports = {
               },
               {
                 $set: {
-                  "settings.theme": data["theme"],
+                  "settings.theme": String(data["theme"]),
                 },
               }
             );
@@ -55,20 +55,22 @@ module.exports = {
               },
               {
                 $set: {
-                  "settings.filePreview": data["filePreview"],
+                  "settings.filePreview": Boolean(data["filePreview"]),
                 },
               }
             );
           }
 
-          if(data["fileDestination"]) {
+          if (data["fileDestination"]) {
             await db.collection(config.database.collections.users).updateOne(
               {
                 telegramId: String((me as any).id),
               },
               {
                 $set: {
-                  "settings.fileDestination": data["fileDestination"],
+                  "settings.fileDestination.name":
+                    data["fileDestination"]["name"],
+                  "settings.fileDestination.id": data["fileDestination"]["id"],
                 },
               }
             );
@@ -77,12 +79,9 @@ module.exports = {
           const name: string = me.firstName + " " + me.lastName;
 
           // Update name on Stripe
-          await stripeClient.customers.update(
-            me.subscription.stripeCustomerId,
-            {
-              name: name,
-            }
-          );
+          await stripeClient.customers.update(result.subscription.stripeId, {
+            name: name,
+          });
 
           // Update username
           await db.collection(config.database.collections.users).updateOne(

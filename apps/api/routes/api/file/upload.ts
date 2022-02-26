@@ -351,8 +351,6 @@ module.exports = {
           // delete file from TMP folder
           await remove(fileX.path);
 
-          console.log(err);
-
           resolve(0);
           return res
             .status(500)

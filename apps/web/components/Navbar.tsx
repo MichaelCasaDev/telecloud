@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import * as Icon from "react-feather";
+import * as config from "../config";
 
 export default function Navbar() {
   let [showModalSite, setModalSite] = useState("error");
@@ -54,7 +55,7 @@ export default function Navbar() {
           </Link>
         </p>
         <p id="dashboard">
-          <Link href="http://localhost:3000">
+          <Link href={config.uiEndpoint + "/"}>
             <a className={"selected"} target="_blank">
               <Icon.ArrowRightCircle
                 size={16}

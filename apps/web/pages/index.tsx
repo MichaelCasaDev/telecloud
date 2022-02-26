@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import * as Icon from "react-feather";
+import * as config from "../config";
 import Link from "next/link";
 import Footer from "../components/Footer";
 
@@ -33,7 +34,7 @@ export default function Page() {
             An <span className="alt">UNLIMITED</span> cloud storage based on
             Telegram!
           </p>
-          <Link href="http://localhost:3000/login">
+          <Link href={config.uiEndpoint + "/login"}>
             <a className="try" target="_blank">
               Register now{" "}
               <Icon.ArrowRight

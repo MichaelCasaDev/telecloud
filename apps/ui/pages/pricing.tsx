@@ -103,7 +103,7 @@ export default function Page() {
     }
 
     router.replace(
-      "http://localhost:8000/api/stripe/create-checkout-session?plan=" +
+      config.apiEndpoint + "/api/stripe/create-checkout-session?plan=" +
         plan +
         "&type=" +
         type +
@@ -113,7 +113,7 @@ export default function Page() {
   }
 
   async function loadData() {
-    const res1 = await fetch("http://localhost:8000/api/user/me", {
+    const res1 = await fetch(config.apiEndpoint + "/api/user/me", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -141,7 +141,6 @@ export default function Page() {
   }, []);
   if (!mounted) return null;
 
-  console.log(me);
   return (
     <div>
       <Head>

@@ -23,7 +23,7 @@ export default function Page() {
         progress: undefined,
       });
 
-      const res = await fetch("http://localhost:8000/api/auth/logout", {
+      const res = await fetch(config.apiEndpoint + "/api/auth/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

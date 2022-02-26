@@ -32,3 +32,7 @@ export const notToPreview: String[] = [
 ];
 
 export const version: string = "v 1.0.0-beta";
+
+export const apiEndpoint: string = String(process.env.NEXT_PUBLIC_API_ENDPOINT);
+
+export const webEndpoint: string = String(process.env.NEXT_PUBLIC_WEB_ENDPOINT);

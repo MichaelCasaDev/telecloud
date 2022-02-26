@@ -85,7 +85,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
 
       await axios
         .request({
-          url: "http://localhost:8000/api/file/delete",
+          url: config.apiEndpoint + "/api/file/delete",
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -157,7 +157,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
 
     await axios
       .request({
-        url: "http://localhost:8000/api/file/edit",
+        url: config.apiEndpoint + "/api/file/edit",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -331,7 +331,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
     }
 
     await asyncForEach(fileToMove, async (el: any, i: number) => {
-      await fetch("http://localhost:8000/api/file/move", {
+      await fetch(config.apiEndpoint + "/api/file/move", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -446,7 +446,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
 
     try {
       await axios
-        .post("http://localhost:8000/api/file/upload", formData)
+        .post(config.apiEndpoint + "/api/file/upload", formData)
         .then(() => {
           if (data.type == "telecloud/folder") {
             toast.update(data.toastId, {
@@ -501,7 +501,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
     setSelectAll(false);
 
     // User files (based on path)
-    const res = await fetch("http://localhost:8000/api/user/files", {
+    const res = await fetch(config.apiEndpoint + "/api/user/files", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -537,7 +537,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
 
     setFiles(json.data);
 
-    const res1 = await fetch("http://localhost:8000/api/user/me", {
+    const res1 = await fetch(config.apiEndpoint + "/api/user/me", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

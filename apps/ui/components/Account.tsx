@@ -12,7 +12,7 @@ export default function Component() {
 
   async function loadData() {
     // User pic
-    const res = await fetch("http://localhost:8000/api/user/pic", {
+    const res = await fetch(config.apiEndpoint + "/api/user/pic", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

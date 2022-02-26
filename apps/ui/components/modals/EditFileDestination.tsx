@@ -38,7 +38,7 @@ export default function Modal_EditFileDestination({
   }
 
   async function loadDialogs() {
-    const res0 = await fetch("http://localhost:8000/api/user/dialogs", {
+    const res0 = await fetch(config.apiEndpoint + "/api/user/dialogs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

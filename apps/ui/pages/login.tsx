@@ -36,7 +36,7 @@ export default function Page() {
   async function sendCodeHandler(e: any) {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:8000/api/auth/sendCode", {
+    const res = await fetch(config.apiEndpoint + "/api/auth/sendCode", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export default function Page() {
   async function resendCodeHandler(e: any) {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:8000/api/auth/resendCode", {
+    const res = await fetch(config.apiEndpoint + "/api/auth/resendCode", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -125,7 +125,7 @@ export default function Page() {
   async function loginHandler(e: any) {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:8000/api/auth/login", {
+    const res = await fetch(config.apiEndpoint + "/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -183,7 +183,7 @@ export default function Page() {
         progress: undefined,
       }
     );
-    const res = await fetch("http://localhost:8000/api/auth/qrcode", {
+    const res = await fetch(config.apiEndpoint + "/api/auth/qrcode", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -240,7 +240,7 @@ export default function Page() {
   // Try to verify authentication progress, check for 2FA errors
   async function listenToLoginQrCode(strSession: string) {
     try {
-      const res = await fetch("http://localhost:8000/api/auth/qrcodesignin", {
+      const res = await fetch(config.apiEndpoint + "/api/auth/qrcodesignin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -302,7 +302,7 @@ export default function Page() {
       progress: undefined,
     });
 
-    const res = await fetch("http://localhost:8000/api/auth/qrcodesignin", {
+    const res = await fetch(config.apiEndpoint + "/api/auth/qrcodesignin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

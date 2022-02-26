@@ -10,6 +10,7 @@ const args = process.argv.slice(2);
 
 const app = express();
 const PORT: number = Number(args[1]);
+const routePath: string = String(args[3]);
 const routes: string[] = [];
 
 // For ENV variables
@@ -33,9 +34,10 @@ app.use(
 );
 
 // Create all routes
-glob("routes/**/*.ts", {}, function (err, files) {
+glob(routePath, {}, function (err, files) {
   for (const x of files) {
-    const routeModule: RouteModuleInterface = require("./" + x);
+    const routeModule: RouteModuleInterface = require("./" +
+      x.replace("dist/", ""));
 
     // Check for duplicated routes
     if (!routes.includes(routeModule.path)) {

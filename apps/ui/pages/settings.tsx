@@ -28,7 +28,7 @@ export default function Page() {
   const router = useRouter();
 
   async function loadData() {
-    const res = await fetch("http://localhost:8000/api/user/me", {
+    const res = await fetch(config.apiEndpoint + "/api/user/me", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +45,7 @@ export default function Page() {
   }
 
   async function deleteAllUserDatas() {
-    const res = await fetch("http://localhost:8000/api/user/delete", {
+    const res = await fetch(config.apiEndpoint + "/api/user/delete", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -99,7 +99,7 @@ export default function Page() {
       }
     );
 
-    await fetch("http://localhost:8000/api/user/update", {
+    await fetch(config.apiEndpoint + "/api/user/update", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -341,7 +341,7 @@ export default function Page() {
               </Link>
             </p>
             <p>
-              <Link href="http://localhost:3001">
+              <Link href={config.webEndpoint}>
                 <a target="_blank">
                   <Icon.Globe
                     size={16}

@@ -55,7 +55,7 @@ module.exports = {
         }
       );
 
-      res.status(200).redirect("http://localhost:3000/pricing");
+      res.status(200).redirect(config.uiEndpoint + "/pricing");
     } catch (err) {
       return res.status(500).json({ err });
     }

@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import * as config from "../config";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -12,7 +13,7 @@ export default function Page() {
   });
 
   async function loadData() {
-    const res = await fetch("http://localhost:8000/api/public/statistics", {
+    const res = await fetch(config.apiEndpoint + "/api/public/statistics", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

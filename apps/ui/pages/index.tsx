@@ -6,7 +6,6 @@ import { checkAuth } from "../lib/checkAuth";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useTheme } from "next-themes";
-import * as Icon from "react-feather";
 import * as config from "../config";
 import { formatSizeUnits } from "../lib/utils";
 
@@ -24,7 +23,7 @@ export default function Page() {
   );
 
   async function loadData() {
-    const res1 = await fetch("http://localhost:8000/api/user/me", {
+    const res1 = await fetch(config.apiEndpoint + "/api/user/me", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

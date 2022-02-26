@@ -18,7 +18,7 @@ export default function Page() {
   );
 
   async function loadData() {
-    const res1 = await fetch("http://localhost:8000/api/user/me", {
+    const res1 = await fetch(config.apiEndpoint + "/api/user/me", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

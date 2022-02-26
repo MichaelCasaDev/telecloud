@@ -51,7 +51,7 @@ module.exports = {
         plan == result.subscription.plan &&
         type == result.subscription.type
       ) {
-        return res.redirect("http://localhost:3000/pricing");
+        return res.redirect(config.uiEndpoint + "/pricing");
       }
 
       // Redirect back to /pricing if plan is starter or invalid
@@ -79,7 +79,7 @@ module.exports = {
           }
         }
 
-        return res.redirect("http://localhost:3000/pricing");
+        return res.redirect(config.uiEndpoint + "/pricing");
       }
 
       // Create a new Stripe session with checkout datas
@@ -94,12 +94,12 @@ module.exports = {
         allow_promotion_codes: true,
         mode: "subscription",
         success_url:
-          "http://localhost:8000/api/stripe/success?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: "http://localhost:3000/pricing",
+          config.apiEndpoint + "/api/stripe/success?session_id={CHECKOUT_SESSION_ID}",
+        cancel_url: config.uiEndpoint + "/pricing",
       });
 
       // Redirect the user the the checkout screen
-      res.redirect(303, session.url || "http://localhost:3000/pricing");
+      res.redirect(303, session.url || config.uiEndpoint + "/pricing");
     } catch (err) {
       return res.status(500).json({ stringSession: stringSession, err });
     }

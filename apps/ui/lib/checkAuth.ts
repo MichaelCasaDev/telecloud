@@ -2,7 +2,7 @@ import { GetServerSidePropsContext } from "next";
 import * as config from "../config";
 
 export async function checkAuth(context: GetServerSidePropsContext) {
-  const res = await fetch("http://localhost:8000/api/user/me", {
+  const res = await fetch(config.apiEndpoint + "/api/user/me", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

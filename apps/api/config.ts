@@ -35,3 +35,7 @@ export const stripe: StripeInterface = {
 };
 
 export const CHUNK_MAX_SIZE: number = 2000000000; // 2GB (2000000000) - 10MB [for testing purposes] (10000000)
+
+export const apiEndpoint: string = String(process.env.API_ENDPOINT);
+
+export const uiEndpoint: string = String(process.env.UI_ENDPOINT);
