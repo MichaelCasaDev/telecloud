@@ -38,6 +38,20 @@ export default function Component({ position }: any) {
           <Icon.X size={16} />
         </button>
         <p>
+          <Link href="/">
+            <a className={position == "home" ? "selected" : ""}>
+              <Icon.Home
+                size={16}
+                style={{
+                  marginRight: "0.5rem",
+                  marginBottom: "-2px",
+                }}
+              />
+              Home
+            </a>
+          </Link>
+        </p>
+        <p>
           <Link href="/cloud">
             <a className={position == "cloud" ? "selected" : ""}>
               <Icon.Cloud

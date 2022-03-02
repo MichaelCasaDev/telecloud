@@ -187,6 +187,20 @@ module.exports = {
 
           // Continue to upload (bandwidth limit)
           if (maxGB && (maxGB == -100 || tmpNewUsage < maxGB)) {
+            if (
+              files.file[0].size > 2000000000 && // 2 GB
+              user.subscription.plan == "starter"
+            ) {
+              // delete file from TMP folder
+              await remove(fileX.path);
+
+              resolve(0);
+              return res.status(500).json({
+                stringSession: telegramClient.session.save(),
+                err: "File not uploaded!",
+              });
+            }
+
             // Uplaod file in chunks
             for await (const chunk of generateChunks(
               fileX.path,

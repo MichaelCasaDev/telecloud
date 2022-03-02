@@ -86,7 +86,7 @@ export default function Page() {
         <link rel="stylesheet" href="/style/index.css" />
       </Head>
 
-      <Navbar position="" />
+      <Navbar position="home" />
 
       <div className="container">
         <div id="header">
