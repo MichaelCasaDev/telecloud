@@ -8,6 +8,7 @@ import { isNameAvailable } from "../../../lib/isNameAvailable";
 import * as configX from "../../../config";
 import { v4 as uuidv4 } from "uuid";
 import { ObjectId } from "mongodb";
+import { tmpdir } from "os";
 
 module.exports = {
   path: "/api/file/upload",
@@ -15,7 +16,7 @@ module.exports = {
     const options = {
       autoFields: true,
       autoFiles: true,
-      uploadDir: "/Users/michaelcasa/Desktop/GitHub/telecloud/apps/api/tmp", // Define a custom folder where save temporary files during upload
+      uploadDir: tmpdir(), // Define a custom folder where save temporary files during upload
     };
 
     // Promise everything to way until all datas are uploaded and processed

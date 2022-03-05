@@ -39,3 +39,5 @@ export const CHUNK_MAX_SIZE: number = 2000000000; // 2GB (2000000000) - 10MB [fo
 export const apiEndpoint: string = String(process.env.API_ENDPOINT);
 
 export const uiEndpoint: string = String(process.env.UI_ENDPOINT);
+
+export const webEndpoint: string = String(process.env.WEB_ENDPOINT);
