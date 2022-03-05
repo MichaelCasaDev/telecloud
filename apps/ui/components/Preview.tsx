@@ -32,7 +32,7 @@ export default function Componenet({
 
   const fileSrc =
     showPreview == "yes"
-      ? `http://localhost:8000/api/file/get/${encodeURI(
+      ? `${config.apiEndpoint}/api/file/get/${encodeURI(
           selectedFilePreview.name
         )}?stringSession=${btoa(
           cookies[config.cookies.stringSession.name]
