@@ -26,10 +26,7 @@ export const cookies: CookiesType = {
   },
 };
 
-export const notToPreview: String[] = [
-  "application/zip",
-  "application/octet-stream",
-];
+export const previewCustom: String[] = ["application/pdf"];
 
 export const version: string = "v 1.0.0-alpha";
 

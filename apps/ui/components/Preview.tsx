@@ -93,33 +93,29 @@ export default function Componenet({
         showPreview == "yes" &&
         selectedFilePreview.size < 50000000 /* 50 Mb */ ? (
           <>
-            {!config.notToPreview.includes(selectedFilePreview.type) ? (
-              <>
-                {baseType == "image" ? (
-                  <img src={fileSrc} />
-                ) : baseType == "video" ? (
-                  <video src={fileSrc} controls controlsList="nodownload" />
-                ) : baseType == "audio" ? (
-                  <audio controls>
-                    <source src={fileSrc} />
-                  </audio>
-                ) : (
-                  <object
-                    data={fileSrc}
-                    type={
-                      selectedFilePreview.type.split("/")[0] == "text"
-                        ? "text/plain"
-                        : selectedFilePreview.type
-                    }
-                    width={"90%"}
-                    height={"90%"}
-                    style={{
-                      backgroundColor: "white",
-                      color: "black",
-                    }}
-                  />
-                )}{" "}
-              </>
+            {baseType == "image" ? (
+              <img src={fileSrc} />
+            ) : baseType == "video" ? (
+              <video src={fileSrc} controls controlsList="nodownload" />
+            ) : baseType == "audio" ? (
+              <audio controls>
+                <source src={fileSrc} />
+              </audio>
+            ) : config.previewCustom.includes(selectedFilePreview.type) ? (
+              <object
+                data={fileSrc}
+                type={
+                  selectedFilePreview.type.split("/")[0] == "text"
+                    ? "text/plain"
+                    : selectedFilePreview.type
+                }
+                width={"90%"}
+                height={"90%"}
+                style={{
+                  backgroundColor: "white",
+                  color: "black",
+                }}
+              />
             ) : (
               <>
                 <p>Preview is not supported for this file!</p>
