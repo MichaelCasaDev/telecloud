@@ -10,7 +10,7 @@ import * as config from "./config";
 const args = process.argv.slice(2);
 
 const app = express();
-const PORT: number = Number(args[1]);
+const PORT: number = Number(process.env.PORT || args[1]);
 const routePath: string = String(args[3]);
 const routes: string[] = [];
 
@@ -62,5 +62,5 @@ glob(routePath, {}, function (err, files) {
 
 // Listen the server to the world
 app.listen(PORT, () => {
-  console.log(`[Server] Server is running at http://localhost:${PORT}`);
+  console.log(`[Server] Server is running at ${config.apiEndpoint}:${PORT}`);
 });

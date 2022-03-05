@@ -231,7 +231,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
 
       await axios
         .request({
-          url: `http://localhost:8000/api/file/get/${encodeURI(
+          url: `${config.apiEndpoint}/api/file/get/${encodeURI(
             el.name
           )}?stringSession=${btoa(
             cookies[config.cookies.stringSession.name]
