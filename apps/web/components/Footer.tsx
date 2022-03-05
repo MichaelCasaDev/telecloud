@@ -3,6 +3,24 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <div id="footer">
+      <p
+        style={{
+          margin: "2rem",
+          fontWeight: 500,
+          fontSize: "18px",
+          color: "#4895ef",
+        }}
+      >
+        Currently in{" "}
+        <span
+          style={{
+            fontStyle: "italic",
+          }}
+        >
+          ALPHA
+        </span>
+        . Some things may not work as excepted!
+      </p>
       <div className="sections">
         <div className="section">
           <Link href="/">

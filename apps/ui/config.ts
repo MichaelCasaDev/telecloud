@@ -31,7 +31,7 @@ export const notToPreview: String[] = [
   "application/octet-stream",
 ];
 
-export const version: string = "v 1.0.0-beta";
+export const version: string = "v 1.0.0-alpha";
 
 export const apiEndpoint: string = String(process.env.NEXT_PUBLIC_API_ENDPOINT);
 
