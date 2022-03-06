@@ -8,7 +8,7 @@ export default function Modal_CreateFolder({
   onClose,
   onEditHandler,
 }: any) {
-  const [name, setName] = useState(files[0].name);
+  const [name, setName] = useState(files.length > 0 ? files[0].name : "");
 
   const handleCloseClick = (e: any) => {
     e.preventDefault();
