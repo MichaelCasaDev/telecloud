@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
+import { useEffect } from "react";
 
 export default function Modal_CreateFolder({
   show,
@@ -7,7 +8,7 @@ export default function Modal_CreateFolder({
   onClose,
   onEditHandler,
 }: any) {
-  const [name, setName] = useState("");
+  const [name, setName] = useState(files[0].name);
 
   const handleCloseClick = (e: any) => {
     e.preventDefault();
@@ -27,6 +28,10 @@ export default function Modal_CreateFolder({
       newName: name,
     });
   }
+
+  useEffect(() => {
+    if (show == "yes") setName(files[0].name);
+  }, [show]);
 
   return (
     <div
@@ -51,7 +56,7 @@ export default function Modal_CreateFolder({
             <input
               type="text"
               placeholder="New Name"
-              value={name != "" ? name : files.length > 0 ? files[0].name : ""}
+              value={name}
               required
               onChange={(e) => setName(e.target.value)}
             />
