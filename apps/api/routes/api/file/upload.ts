@@ -176,7 +176,7 @@ module.exports = {
 
           // Limits based per subscription
           const tmpNewUsage =
-            user.bandwidth.monthlyUsage[0] + files.file[0].size;
+            Number(user.bandwidth.monthlyUsage[0]) + files.file[0].size;
           const maxGB =
             user.subscription.plan == "starter"
               ? 50000000000 // 50 GB
@@ -315,7 +315,7 @@ module.exports = {
             );
 
           // Update month usage
-          const dbDate = new Date(user.bandwidth.lastUpdate);
+          const dbDate = new Date(Number(user.bandwidth.lastUpdate));
           const dbMonth = dbDate.getMonth();
 
           const nowDate = new Date(Date.now());
@@ -330,7 +330,7 @@ module.exports = {
               {
                 $push: {
                   "bandwidth.monthlyUsage": {
-                    $each: [Number(chunks.size)],
+                    $each: [String(chunks.size)],
                     $position: 0,
                   },
                 },
@@ -345,10 +345,10 @@ module.exports = {
                 telegramId: String(((await telegramClient.getMe()) as any).id),
               },
               {
-                $inc: {
-                  "bandwidth.monthlyUsage.0": Number(chunks.size),
-                },
                 $set: {
+                  "bandwidth.monthlyUsage.0": String(
+                    Number(user.bandwidth.monthlyUsage[0]) + Number(chunks.size)
+                  ),
                   "bandwidth.lastUpdate": String(nowDate.getTime()),
                 },
               }
