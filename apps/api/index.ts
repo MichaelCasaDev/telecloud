@@ -3,7 +3,6 @@ import express from "express";
 import glob from "glob";
 import cors from "cors";
 import { RouteModuleInterface } from "./lib/types";
-import * as dotenv from "dotenv";
 import * as config from "./config";
 
 // All global variables goes here
@@ -13,14 +12,6 @@ const app = express();
 const PORT: number = Number(process.env.PORT || args[1]);
 const routePath: string = String(args[3]);
 const routes: string[] = [];
-
-// For ENV variables
-dotenv.config({
-  path:
-    process.env.NODE_ENV === "development" || !process.env.NODE_ENV
-      ? ".env.local"
-      : ".env",
-});
 
 // Some needed functions to have evrything go (JSON formatter - JSON formatter v2 - CORS for secuirty)
 app.use(bodyParser.json({ type: "application/json" }));

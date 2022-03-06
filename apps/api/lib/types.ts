@@ -14,6 +14,7 @@ export interface DatabaseAuthType {
     files: string;
     users: string;
     statistics: string;
+    betaAccounts: string;
   };
   statisticsId: string;
 }

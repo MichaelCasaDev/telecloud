@@ -368,6 +368,26 @@ export default function Page() {
 
       <div id="container">
         <img src="/img/logo.svg" alt="Telecloud" />
+        {config.isBeta ? (
+          <p
+            style={{
+              fontSize: "18px",
+            }}
+          >
+            <span
+              style={{
+                fontWeight: "500",
+                fontSize: "20px",
+                color: "rgb(238, 87, 177)",
+              }}
+            >
+              Currenly in beta.
+            </span>{" "}
+            You need to have joined the beta program and get accepted in order
+            to use Telecloud right now.
+          </p>
+        ) : null}
+
         <div className="box">
           <p id="title">Login with Telegram</p>
           {qrCode.enabled ? (

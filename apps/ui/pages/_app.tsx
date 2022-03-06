@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: any) {
 
   return (
     <ThemeProvider
-      defaultTheme="light"
+      defaultTheme="system"
       storageKey="theme"
       disableTransitionOnChange
     >

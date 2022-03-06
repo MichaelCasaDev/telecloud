@@ -17,14 +17,14 @@ export async function createUserDatabase(
   const me: any = await telegramClient.getMe();
 
   const userX = await db.collection(config.database.collections.users).findOne({
-    uuid: String(me.id),
+    telegramId: String(me.id),
   });
 
   // Create user in the database if not exists
   if (!userX) {
     const nowDateNumber: Number = new Date(Date.now()).getTime();
     const uuid: String = uuidv4();
-    const name: string = me.firstName + " " + me.lastName;
+    const name: string = (me.firstName || "") + " " + (me.lastName || "");
 
     // Create a new customer in Stripe
     const stripeClient = stripeClientLogin();
@@ -32,34 +32,36 @@ export async function createUserDatabase(
       name: name,
       metadata: {
         telegramId: String(me.id),
-      },
-    });
-
-    // Push some other informations
-    await stripeClient.customers.update(customer.id, {
-      metadata: {
         uuid: String(uuid),
       },
     });
+
+    const betaAccount = await db
+      .collection(config.database.collections.betaAccounts)
+      .findOne({
+        phone: String(me.phone),
+      });
 
     await db.collection(config.database.collections.users).insertOne({
       uuid: String(uuid),
       telegramId: String(me.id),
       username: String(me.username),
       name: String(name),
-      createdAt: Number(nowDateNumber),
+      phone: String(me.phone),
+      createdAt: String(nowDateNumber),
+      lastJoinAt: String(nowDateNumber),
       isBanned: Boolean(false),
       files: [],
       usage: {
         now: {
-          files: Number(0),
-          folders: Number(0),
-          space: Number(0),
+          files: String(0),
+          folders: String(0),
+          space: String(0),
         },
         total: {
-          files: Number(0),
-          folders: Number(0),
-          space: Number(0),
+          files: String(0),
+          folders: String(0),
+          space: String(0),
         },
       },
       settings: {
@@ -77,7 +79,16 @@ export async function createUserDatabase(
       },
       bandwidth: {
         monthlyUsage: [0],
-        lastUpdate: Number(nowDateNumber),
+        lastUpdate: String(nowDateNumber),
+      },
+      beta: {
+        isTester:
+          betaAccount && betaAccount.accepted ? Boolean(true) : Boolean(false),
+        requestDate: betaAccount ? String(betaAccount.requestDate) : String(""),
+        acceptDate:
+          betaAccount && betaAccount.accepted
+            ? String(betaAccount.acceptDate)
+            : String(""),
       },
     });
 

@@ -3,6 +3,15 @@ import {
   StripeInterface,
   TelegramAuthType,
 } from "./lib/types";
+import * as dotenv from "dotenv";
+
+// For ENV variables
+dotenv.config({
+  path:
+    process.env.NODE_ENV === "development" || !process.env.NODE_ENV
+      ? ".env.local"
+      : ".env",
+});
 
 export const database: DatabaseAuthType = {
   url: String(process.env.DATABASE_URI),
@@ -10,6 +19,7 @@ export const database: DatabaseAuthType = {
     files: "files",
     users: "users",
     statistics: "statistics",
+    betaAccounts: "betaAccounts"
   },
   statisticsId: "620933a53d057cdf4919ec06",
 };
@@ -33,6 +43,8 @@ export const stripe: StripeInterface = {
     apiVersion: "2020-08-27",
   },
 };
+
+export const isBeta: boolean = true;
 
 export const CHUNK_MAX_SIZE: number = 2000000000; // 2GB (2000000000) - 10MB [for testing purposes] (10000000)
 

@@ -444,6 +444,27 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
     );
     formData.append("path", path);
 
+    // Check file size for starter plan limits
+    if (
+      data.file.size > 2000000000 && // 2 GB
+      me.subscription.plan == "starter"
+    ) {
+      toast.update(data.toastId, {
+        type: toast.TYPE.ERROR,
+        render: "File is bigger than 2 GB. Upgrade your plan to upload it!",
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+
+        draggable: true,
+        progress: undefined,
+        isLoading: false,
+      });
+
+      return;
+    }
+
     try {
       await axios
         .post(config.apiEndpoint + "/api/file/upload", formData)

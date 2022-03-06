@@ -335,7 +335,7 @@ module.exports = {
                   },
                 },
                 $set: {
-                  "bandwidth.lastUpdate": Number(nowDate.getTime()),
+                  "bandwidth.lastUpdate": String(nowDate.getTime()),
                 },
               }
             );
@@ -349,7 +349,7 @@ module.exports = {
                   "bandwidth.monthlyUsage.0": Number(chunks.size),
                 },
                 $set: {
-                  "bandwidth.lastUpdate": Number(nowDate.getTime()),
+                  "bandwidth.lastUpdate": String(nowDate.getTime()),
                 },
               }
             );

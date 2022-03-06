@@ -68,13 +68,14 @@ export default function Page() {
 
   useEffect(() => {
     if (Object.keys(me).length > 0) {
+      setMounted(true);
+
       setTheme(me.settings.theme);
     }
   }, [me]);
 
   // When mounted on client, now we can show the UI
   useEffect(() => {
-    setMounted(true);
     loadData();
   }, []);
   if (!mounted) return null;
@@ -93,13 +94,14 @@ export default function Page() {
           <div>
             <p id="username">Welcome back {me.username}</p>
             <p id="name">{me.name}</p>
+            {me.beta.isTester ? <p>Beta Tester</p> : null}
           </div>
           <Account />
         </div>
 
         <div
           style={{
-            marginTop: "12rem",
+            marginTop: "14rem",
           }}
         >
           <p>Used bandwidth this month</p>

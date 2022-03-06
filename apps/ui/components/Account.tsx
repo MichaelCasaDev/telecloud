@@ -33,7 +33,6 @@ export default function Component() {
 
   // When mounted on client, now we can show the UI
   useEffect(() => {
-    setMounted(true);
     loadData();
   }, []);
   if (!mounted) return null;

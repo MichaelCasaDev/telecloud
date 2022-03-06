@@ -2,6 +2,7 @@ import { TelegramClient } from "telegram";
 import { LogLevel } from "telegram/extensions/Logger";
 import { StringSession } from "telegram/sessions/StringSession";
 import * as config from "../config";
+import { connectToDatabase } from "./database";
 
 export async function telegramClientLogin(stringSession: string) {
   const telegramClient = new TelegramClient(
@@ -21,6 +22,22 @@ export async function telegramClientLogin(stringSession: string) {
 
 export async function isAuthorized(telegramClient: TelegramClient) {
   if (await telegramClient.isUserAuthorized()) {
+    const db = (await connectToDatabase()).db();
+
+    const account = await db
+      .collection(config.database.collections.betaAccounts)
+      .findOne({
+        phone: String(((await telegramClient.getMe()) as any).phone),
+      });
+
+    // Beta related checks
+    if (config.isBeta) {
+      if (account && account.accepted) {
+        return true;
+      } else {
+        return false;
+      }
+    }
     return true;
   }
 

@@ -130,13 +130,13 @@ export default function Page() {
 
   useEffect(() => {
     if (Object.keys(me).length > 0) {
+      setMounted(true);
       setTheme(me.settings.theme);
     }
   }, [me]);
 
   // When mounted on client, now we can show the UI
   useEffect(() => {
-    setMounted(true);
     loadData();
   }, []);
   if (!mounted) return null;

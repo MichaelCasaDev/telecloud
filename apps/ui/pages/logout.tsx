@@ -90,7 +90,7 @@ export default function Page() {
 
   // When mounted on client, now we can show the UI
   useEffect(() => {
-    setMounted(true);
+    
     logout();
   }, []);
   if (!mounted) return null;

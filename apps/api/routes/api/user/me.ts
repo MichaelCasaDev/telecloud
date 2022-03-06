@@ -31,6 +31,19 @@ module.exports = {
         .findOne({ telegramId: String((me as any).id) });
 
       if (result) {
+        const nowDateNumber: Number = new Date(Date.now()).getTime();
+
+        await db.collection(config.database.collections.users).updateOne(
+          {
+            telegramId: String((me as any).id),
+          },
+          {
+            $set: {
+              lastJoinAt: String(nowDateNumber),
+            }
+          }
+        );
+
         return res
           .status(200)
           .json({ stringSession: telegramClient.session.save(), data: result });
