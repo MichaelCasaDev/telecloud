@@ -39,7 +39,9 @@ module.exports = {
           .json({ stringSession: telegramClient.session.save(), err });
       }
 
-      await createUserDatabase(db, telegramClient);
+      if (await isAuthorized(telegramClient)) {
+        await createUserDatabase(db, telegramClient);
+      }
 
       return res
         .status(200)
@@ -75,7 +77,9 @@ module.exports = {
         }
       );
 
-      await createUserDatabase(db, telegramClient);
+      if (await isAuthorized(telegramClient)) {
+        await createUserDatabase(db, telegramClient);
+      }
 
       return res
         .status(200)
