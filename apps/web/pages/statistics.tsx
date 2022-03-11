@@ -5,7 +5,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function Page() {
-  const [mounted, setMounted] = useState(false);
   const [data, setData] = useState({
     totalUsers: 0,
     totalFiles: 0,
@@ -44,10 +43,8 @@ export default function Page() {
 
   // When mounted on client, now we can show the UI
   useEffect(() => {
-    setMounted(true);
     loadData();
   }, []);
-  if (!mounted) return null;
 
   return (
     <div>

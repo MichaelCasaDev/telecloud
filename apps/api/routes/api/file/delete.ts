@@ -1,4 +1,3 @@
-import { Db, ObjectId } from "mongodb";
 import { Request, Response } from "express";
 import { Api } from "telegram";
 import { connectToDatabase } from "../../../lib/database";

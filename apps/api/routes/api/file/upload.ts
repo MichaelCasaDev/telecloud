@@ -53,6 +53,13 @@ module.exports = {
         // Upload file as folder
         /* ####################### */
         if (String(isFolder[0]) == "true") {
+          // Check folder name length
+          if (name[0].length > 32 || name[0].length < 5) {
+            return res.status(500).json({
+              err: "Folder name invalid! (Max 32 chars, Min 6 chars)",
+            });
+          }
+
           // Check if folder name is available
           if (
             !(await isNameAvailable(db, telegramClient, name[0], path[0], true))

@@ -13,26 +13,29 @@ export async function filesFromPath(
   let totFolders = 1;
   let files: any[] = [];
 
+  // Could instanciate a base folder if needed
   if (folder != null) {
     files[0] = folder;
   }
 
   let f0: any[] = [];
 
-  // find folder and save file
+  // Find base folders and files from {path}
   await asyncForEach(user.files, async (el: any, i: number) => {
-    if (el.path == path + (folder ? folder.name : "")) {
+    if (el.path == path + (folder ? encodeURI(folder.name) : "")) {
       let x = await db.collection(config.database.collections.files).findOne({
         uuid: String(el.uuid),
       });
 
       if (x) {
+        // Find folder to do opertaion next
         if (x.type == "telecloud/folder") {
           f0.push(x);
           files.push(x);
 
           totFolders++;
         } else {
+          // Save file to array
           files.push(x);
 
           totFiles++;
@@ -42,13 +45,13 @@ export async function filesFromPath(
     }
   });
 
-  // Delete subfolder and files
+  // Retrive subfolder and files
   if (f0.length > 0) {
     let i = 0;
-    let pathx = path + (folder ? folder.name : "");
+    let pathx = path + (folder ? encodeURI(folder.name) : "");
 
     do {
-      pathx += "/" + f0[i].name;
+      pathx += "/" + encodeURI(f0[i].name);
 
       await asyncForEach(user.files, async (el: any, i: number) => {
         if (el.path == pathx) {
@@ -59,6 +62,7 @@ export async function filesFromPath(
             });
 
           if (x) {
+            // Find folder to do opertaion next
             if (x.type == "telecloud/folder") {
               f0.push(x);
               i++;
@@ -66,6 +70,7 @@ export async function filesFromPath(
 
               totFolders++;
             } else {
+              // Save file to array
               files.push(x);
 
               totFiles++;

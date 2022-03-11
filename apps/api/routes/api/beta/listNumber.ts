@@ -5,7 +5,7 @@ import { connectToDatabase } from "../../../lib/database";
 module.exports = {
   path: "/api/beta/listnumber",
   handler: async function handler(req: Request, res: Response) {
-    const { phone } = req.body;
+    const { phone, email } = req.body;
     const db = (await connectToDatabase()).db();
     const nowDateNumber: Number = new Date(Date.now()).getTime();
 
@@ -22,6 +22,7 @@ module.exports = {
         .collection(config.database.collections.betaAccounts)
         .findOne({
           phone: String(phone),
+          email: String(email),
         });
 
       if (!account) {
@@ -29,6 +30,7 @@ module.exports = {
           .collection(config.database.collections.betaAccounts)
           .insertOne({
             phone: String(phone),
+            email: String(email),
             accepted: Boolean(false),
             requestDate: String(nowDateNumber),
             acceptDate: String(""),

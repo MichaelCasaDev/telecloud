@@ -576,6 +576,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
 
   useEffect(() => {
     if (Object.keys(me).length > 0) {
+      setMounted(true);
       setTheme(me.settings.theme);
       setPreview(me.settings.filePreview);
     }
@@ -587,7 +588,6 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
 
   // When mounted on client, now we can show the UI
   useEffect(() => {
-    setMounted(true);
     loadData();
   }, []);
   if (!mounted) return null;

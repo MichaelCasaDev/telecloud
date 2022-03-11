@@ -61,6 +61,7 @@
 #priceSwitch div #yearly {
   background: linear-gradient(-70deg, #9867f0 0%, #ed4e50 100%);
   background-clip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 
   margin-left: 1rem;

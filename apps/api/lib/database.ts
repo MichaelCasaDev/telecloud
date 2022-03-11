@@ -45,6 +45,7 @@ export async function createUserDatabase(
     await db.collection(config.database.collections.users).insertOne({
       uuid: String(uuid),
       telegramId: String(me.id),
+      telegramToken: String(""),
       username: String(me.username),
       name: String(name),
       phone: String(me.phone),
@@ -82,8 +83,7 @@ export async function createUserDatabase(
         lastUpdate: String(nowDateNumber),
       },
       beta: {
-        isTester:
-          betaAccount && betaAccount.accepted ? Boolean(true) : Boolean(false),
+        isTester: Boolean(betaAccount && betaAccount.accepted),
         requestDate: betaAccount ? String(betaAccount.requestDate) : String(""),
         acceptDate:
           betaAccount && betaAccount.accepted

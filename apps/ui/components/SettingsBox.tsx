@@ -81,30 +81,24 @@ export default function Componenet({
         Upload files
       </p>
       <p id="divider"></p>
-      {paste ? (
-        <p
-          onClick={() => {
-            paste ? setShow("no") : null;
-            pasteFile(pos.path);
-          }}
+      <p
+        onClick={() => {
+          paste ? setShow("no") : null;
+          pasteFile(pos.path);
+        }}
+        style={{
+          color: paste ? (dataTheme == "dark" ? "white" : "black") : "#838383",
+        }}
+      >
+        <Icon.Clipboard
+          size={16}
           style={{
-            color: paste
-              ? dataTheme == "dark"
-                ? "white"
-                : "black"
-              : "#838383",
+            marginRight: "0.5rem",
+            marginBottom: "-2px",
           }}
-        >
-          <Icon.Clipboard
-            size={16}
-            style={{
-              marginRight: "0.5rem",
-              marginBottom: "-2px",
-            }}
-          />
-          Paste
-        </p>
-      ) : null}
+        />
+        Paste
+      </p>
       <p
         onClick={() => {
           pos.file ? setShow("no") : null;

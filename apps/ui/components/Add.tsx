@@ -16,7 +16,7 @@ export default function Component({
         id="add"
         onClick={() => (show == "yes" ? setShow("no") : setShow("yes"))}
       >
-        <img src="/img/add.svg" alt="add" />
+        <p id="item">+</p>
 
         <form
           id="options"

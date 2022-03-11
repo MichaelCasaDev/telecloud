@@ -38,6 +38,7 @@ export async function isAuthorized(telegramClient: TelegramClient) {
         return false;
       }
     }
+
     return true;
   }
 

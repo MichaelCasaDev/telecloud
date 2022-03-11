@@ -28,9 +28,5 @@ export async function isNameAvailable(
     }
   });
 
-  if (!available) {
-    return false;
-  }
-
-  return true;
+  return available;
 }

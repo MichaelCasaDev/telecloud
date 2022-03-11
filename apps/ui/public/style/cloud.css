@@ -174,7 +174,7 @@
   right: 4rem;
 
   display: flex;
-  border-radius: 100%;
+  border-radius: 100px;
   cursor: pointer;
 
   transition: box-shadow 200ms ease-in-out, transform 200ms ease-in-out;
@@ -192,11 +192,18 @@
   justify-content: center;
 }
 
-#add img {
-  border-radius: 100%;
+#add #item {
+  border-radius: 100px;
+  background: #4895ef;
 
   width: 3rem;
   height: 3rem;
+
+  vertical-align: middle;
+  text-align: center;
+  line-height: 3rem;
+  font-size: 24px;
+  margin: 0;
 }
 
 #add:hover {

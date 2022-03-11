@@ -5,14 +5,15 @@ import * as Icon from "react-feather";
 import * as config from "../config";
 import Footer from "../components/Footer";
 import { toast } from "react-toastify";
-import { useRouter } from "next/router";
 import { GetServerSidePropsContext } from "next";
+import { useCookies } from "react-cookie";
 
 export default function Page() {
-  const [mounted, setMounted] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [cookies, setCookies] = useCookies();
 
-  const router = useRouter();
+  const [listed, setListed] = useState(cookies["listed"] || false);
 
   async function listPhoneHandler(e: any) {
     e.preventDefault();
@@ -32,6 +33,7 @@ export default function Page() {
       },
       body: JSON.stringify({
         phone: String(phoneNumber),
+        email: String(email),
       }),
     });
 
@@ -50,9 +52,9 @@ export default function Page() {
         isLoading: false,
       });
 
-      setTimeout(() => {
-        router.replace("/");
-      }, 1000);
+      setCookies("listed", String(email), {
+        expires: new Date(Date.now() + 31556952000), // 1 Year
+      });
     } else {
       toast.update(toastId, {
         type: toast.TYPE.ERROR,
@@ -72,10 +74,8 @@ export default function Page() {
 
   // When mounted on client, now we can show the UI
   useEffect(() => {
-    setMounted(true);
     loadData();
   }, []);
-  if (!mounted) return null;
 
   return (
     <div>
@@ -88,41 +88,67 @@ export default function Page() {
 
       <div className="container">
         <div className="box">
-          <p id="title">
-            Enter your phone number to list your Telegram account in Telecloud
-            beta program
-          </p>
-
-          <form>
-            <input
-              type="phone"
-              placeholder="Phone number"
-              name="phonenumber"
-              autoComplete="tel"
-              value={phoneNumber}
-              required
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-            <button onClick={listPhoneHandler}>
-              <Icon.Key
-                size={16}
+          {cookies["listed"] ? (
+            <>
+              <p
+                id="title"
                 style={{
-                  marginRight: "0.5rem",
-                  marginBottom: "-2px",
+                  marginTop: "0",
                 }}
-              />{" "}
-              Join beta
-            </button>
-          </form>
-
-          <p id="bottomText">
-            *After you list your account you need to wait to be accepted in
-            Telecloud beta program. Times may vary based on how much users join
-            the beta program.
-            <br />
-            *The listed phone number cannot be changed! Beta program is strictly
-            related to the phone number of your Telegram account.
-          </p>
+              >
+                Thanks for have joined the Telecloud beta program!
+              </p>
+              <p id="bottomText">
+                We would send you an email [{cookies["listed"]}] when you got
+                accepted in Telecloud beta program!
+              </p>
+            </>
+          ) : (
+            <>
+              <p id="title">
+                Enter your phone number to list your Telegram account in
+                Telecloud beta program
+              </p>
+              <form>
+                <input
+                  type="phone"
+                  placeholder="Phone number"
+                  name="phonenumber"
+                  autoComplete="tel"
+                  value={phoneNumber}
+                  required={true}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                  autoComplete="email"
+                  value={email}
+                  required={true}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <button onClick={listPhoneHandler}>
+                  <Icon.Key
+                    size={16}
+                    style={{
+                      marginRight: "0.5rem",
+                      marginBottom: "-2px",
+                    }}
+                  />{" "}
+                  Join beta
+                </button>
+              </form>
+              <p id="bottomText">
+                *After you list your account you need to wait to be accepted in
+                Telecloud beta program. Times may vary based on how much users
+                join the beta program.
+                <br />
+                *The listed phone number cannot be changed! Beta program is
+                strictly related to the phone number of your Telegram account.
+              </p>
+            </>
+          )}
         </div>
 
         <Footer />

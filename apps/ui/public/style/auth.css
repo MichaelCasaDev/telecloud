@@ -64,7 +64,7 @@
   height: 3rem;
   width: 100%;
   padding: 1rem;
-  margin: 2rem 0;
+  margin: 1rem 0;
 
   transition: box-shadow 100ms ease-in-out;
 }
@@ -82,13 +82,7 @@
   width: 10rem;
   border: none;
   border-radius: 99999px;
-  background: linear-gradient(
-    225.42deg,
-    #02bdff 0%,
-    #2791ff 51.76%,
-    #2790ff 51.77%,
-    #4f5fff 99.27%
-  );
+  background: #4895ef;
   color: white;
   font-size: 18px;
   font-weight: 600;

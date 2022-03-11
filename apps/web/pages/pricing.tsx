@@ -1,15 +1,14 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { useCookies } from "react-cookie";
-import { useRouter } from "next/router";
 import * as Icon from "react-feather";
 import * as config from "../config";
 import Link from "next/link";
 
 export default function Page() {
-  const [mounted, setMounted] = useState(false);
+  const [sortType, setSortType] = useState("month");
+
   const pricing = [
     {
       id: "starter",
@@ -66,20 +65,6 @@ export default function Page() {
       ],
     },
   ];
-
-  const [cookies, setCookies] = useCookies();
-  const [sortType, setSortType] = useState("month");
-
-  const router = useRouter();
-
-  async function loadData() {}
-
-  // When mounted on client, now we can show the UI
-  useEffect(() => {
-    setMounted(true);
-    loadData();
-  }, []);
-  if (!mounted) return null;
 
   return (
     <div>

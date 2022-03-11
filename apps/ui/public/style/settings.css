@@ -131,6 +131,7 @@
 #fileDestination .chat {
   background-color: #e2e2e2;
   color: black;
+  cursor: pointer;
 
   display: flex;
   flex-direction: row;
@@ -162,7 +163,6 @@
 
 #fileDestination .chat .showMore {
   margin-left: auto;
-  cursor: pointer;
 }
 
 #fileDestination .chatList {

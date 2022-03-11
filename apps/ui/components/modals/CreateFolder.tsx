@@ -51,7 +51,9 @@ export default function Modal_CreateFolder({
               type="text"
               placeholder="Folder Name"
               required
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) =>
+                setName(e.target.value.length <= 32 ? e.target.value : name)
+              }
             />
           </div>
           <div className="buttons">

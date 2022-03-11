@@ -80,12 +80,12 @@ export default function Modal_EditFileDestination({
         <form onSubmit={submitHandler}>
           <div className="inputs">
             <p id="fileDestination">
-              <p className="chat">
+              <p
+                className="chat"
+                onClick={() => setShowDestinations(!showDestinations)}
+              >
                 <p className="name">{selected.name}</p>
-                <p
-                  className="showMore"
-                  onClick={() => setShowDestinations(!showDestinations)}
-                >
+                <p className="showMore">
                   <Icon.ArrowDown
                     size={16}
                     style={{
