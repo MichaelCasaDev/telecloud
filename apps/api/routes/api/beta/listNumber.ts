@@ -13,16 +13,33 @@ module.exports = {
       return res.status(500).json({ err: "Not in beta!" });
     }
 
-    if (!phone || (phone as string).length != 12) {
+    if (!phone || !email) {
+      return res
+        .status(500)
+        .json({ err: "Phone number or email not provided!" });
+    }
+
+    const normalizedPhone: string = phone.replace(/[-+ ]/g, "");
+    const normalizedEmail: string = email.replace(/[ ]/g, "");
+
+    if (normalizedPhone.length != 12) {
       return res.status(500).json({ err: "Phone number invalid!" });
+    }
+
+    if (
+      !normalizedEmail.includes("@") ||
+      !normalizedEmail.includes(".") ||
+      normalizedEmail.split(".")[normalizedEmail.split(".").length-1].length < 2
+    ) {
+      return res.status(500).json({ err: "Email invalid!" });
     }
 
     try {
       const account = await db
         .collection(config.database.collections.betaAccounts)
         .findOne({
-          phone: String(phone),
-          email: String(email),
+          phone: String(normalizedPhone),
+          email: String(normalizedEmail),
         });
 
       if (!account) {
