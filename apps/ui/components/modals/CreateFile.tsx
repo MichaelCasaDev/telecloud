@@ -7,7 +7,7 @@ export default function Modal_CreateFile({
   onClose,
   onFileCreateHandler,
 }: any) {
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState([] as any[]);
 
   const handleCloseClick = (e: any) => {
     e.preventDefault();
@@ -33,7 +33,9 @@ export default function Modal_CreateFile({
       progress: undefined,
     });
 
-    onFileCreateHandler(file, toastId);
+    onFileCreateHandler(file, toastId).then(() => {
+      setFile([]);
+    });
   }
 
   return (
@@ -56,13 +58,69 @@ export default function Modal_CreateFile({
         <p className="boxTitle">Upload a file</p>
         <form onSubmit={submitHandler}>
           <div className="inputs">
-            <input
-              type="file"
-              placeholder="Files"
-              required={true}
-              multiple={true}
-              onChange={(e: any) => setFile(e.target.files)}
-            />
+            <div
+              id="input"
+              style={{
+                position: "relative",
+                textAlign: "left",
+              }}
+            >
+              Select files
+              <input
+                type="file"
+                placeholder="Files"
+                required={true}
+                multiple={true}
+                onChange={(e: any) => setFile(e.target.files)}
+                style={{
+                  opacity: "0",
+                  position: "absolute",
+                  top: "0",
+                  left: "0",
+                  width: "100%",
+                  height: "100%",
+                  marginTop: "-2px",
+                  cursor: "pointer",
+                }}
+              />
+            </div>
+            {file && file.length > 0 ? (
+              <div>
+                <div
+                  style={{
+                    maxHeight: "12rem",
+                    overflowY: "auto",
+                  }}
+                >
+                  {Object.keys(file).map((x: any, i: number) => {
+                    return (
+                      <div className="file">
+                        <p key={i}>{file[x].name}</p>
+                        <p
+                          className="remove"
+                          onClick={() => {
+                            const a = Array.from(file);
+                            a.splice(x, 1);
+
+                            setFile(a);
+                          }}
+                        >
+                          x
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+                <p
+                  style={{
+                    fontSize: "14px",
+                    padding: "1rem"
+                  }}
+                >
+                  {"Total: " + file.length}
+                </p>
+              </div>
+            ) : null}
           </div>
           <div className="buttons">
             <button
@@ -70,7 +128,7 @@ export default function Modal_CreateFile({
               className="cancelChange"
               onClick={handleCloseClick}
             >
-              Cancel
+              Close
             </button>
             <button type="submit" className="submitChange">
               Upload

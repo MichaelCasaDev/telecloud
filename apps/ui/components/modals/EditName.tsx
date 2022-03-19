@@ -26,6 +26,8 @@ export default function Modal_CreateFolder({
 
     onEditHandler({
       newName: name,
+    }).then(() => {
+      setName("");
     });
   }
 
@@ -69,7 +71,7 @@ export default function Modal_CreateFolder({
               className="cancelChange"
               onClick={handleCloseClick}
             >
-              Cancel
+              Close
             </button>
             <button type="submit" className="submitChange">
               Rename

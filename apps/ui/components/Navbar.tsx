@@ -35,8 +35,9 @@ export default function Component({ position }: any) {
         }
       >
         <button className="close" onClick={() => setModalSite("no")}>
-          <Icon.X size={16} />
+          <Icon.X size={24} />
         </button>
+
         <p>
           <Link href="/">
             <a className={position == "home" ? "selected" : ""}>

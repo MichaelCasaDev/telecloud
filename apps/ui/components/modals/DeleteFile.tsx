@@ -54,7 +54,7 @@ export default function Modal_DeleteFile({
               className="cancelChange"
               onClick={handleCloseClick}
             >
-              Cancel
+              Close
             </button>
             <button
               type="submit"

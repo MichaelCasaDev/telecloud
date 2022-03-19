@@ -10,7 +10,6 @@ export default function Modal_EditFileDestination({
   onClose,
   onEditHandler,
 }: any) {
-  const [name, setName] = useState("");
   const [showDestinations, setShowDestinations] = useState(false);
   const [selected, setSelected] = useState(currentChat);
   const [chats, setChats] = useState([]);
@@ -128,7 +127,7 @@ export default function Modal_EditFileDestination({
               className="cancelChange"
               onClick={handleCloseClick}
             >
-              Cancel
+              Close
             </button>
             <button type="submit" className="submitChange">
               Save

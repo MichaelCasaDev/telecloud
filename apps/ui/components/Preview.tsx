@@ -25,18 +25,15 @@ export default function Componenet({
 }) {
   const [cookies, setCookies] = useCookies();
 
-  const baseType =
-    Object.keys(selectedFilePreview).length != 0
-      ? selectedFilePreview.type.split("/")[0]
-      : "";
+  const { type, name, uuid, size, parts, lastEdit } = selectedFilePreview;
 
   const fileSrc =
     showPreview == "yes"
       ? `${config.apiEndpoint}/api/file/get/${encodeURI(
-          selectedFilePreview.name
+          name
         )}?stringSession=${btoa(
           cookies[config.cookies.stringSession.name]
-        )}&uuid=${selectedFilePreview.uuid}&download=false`
+        )}&uuid=${uuid}&download=false`
       : "";
 
   return (
@@ -67,14 +64,14 @@ export default function Componenet({
               marginLeft: "1rem",
             }}
           >
-            {selectedFilePreview.name}
+            {name}
           </p>
         </p>
         <p
           onClick={(e) => {
             setPos({
-              x: e.screenX - 180,
-              y: e.screenY,
+              x: document.body.getBoundingClientRect().right - 230,
+              y: document.body.getBoundingClientRect().top + 130,
               file: selectedFilePreview,
             });
 
@@ -93,22 +90,18 @@ export default function Componenet({
         showPreview == "yes" &&
         selectedFilePreview.size < 50000000 /* 50 Mb */ ? (
           <>
-            {baseType == "image" ? (
+            {type == "image" ? (
               <img src={fileSrc} />
-            ) : baseType == "video" ? (
+            ) : type == "video" ? (
               <video src={fileSrc} controls controlsList="nodownload" />
-            ) : baseType == "audio" ? (
+            ) : type == "audio" ? (
               <audio controls>
                 <source src={fileSrc} />
               </audio>
-            ) : config.previewCustom.includes(selectedFilePreview.type) ? (
+            ) : type === "text" ? (
               <object
                 data={fileSrc}
-                type={
-                  selectedFilePreview.type.split("/")[0] == "text"
-                    ? "text/plain"
-                    : selectedFilePreview.type
-                }
+                type={"text/plain"}
                 width={"90%"}
                 height={"90%"}
                 style={{
@@ -197,16 +190,16 @@ export default function Componenet({
         )}
       </div>
       <div id="bottom">
-        <p>Last Edit: {formatDate(selectedFilePreview.lastEdit || "")}</p>
+        <p>Last Edit: {formatDate(lastEdit || "")}</p>
         <p>
           <span
             style={{
               marginRight: "1rem",
             }}
           >
-            Parts: {selectedFilePreview.parts}
+            Parts: {parts}
           </span>
-          Size: {formatSizeUnits(selectedFilePreview.size)}
+          Size: {formatSizeUnits(size)}
         </p>
       </div>
     </div>

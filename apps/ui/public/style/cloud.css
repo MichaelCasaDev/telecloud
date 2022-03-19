@@ -69,7 +69,7 @@
 #names {
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 5% 60% 15% 15%;
+  grid-template-columns: 60% 15% 25%;
 
   width: 100%;
   align-items: center;
@@ -81,13 +81,6 @@
   border-bottom: solid 0.5px rgb(145, 145, 145);
 
   color: black;
-}
-
-#filesBox .file #select,
-#names #select {
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
 }
 
 #filesBox .file p {
@@ -345,9 +338,35 @@
   overflow: hidden;
 }
 
+#modal .inputs .file {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 0 1rem;
+  border-radius: 10px;
+
+  transition: background-color 250ms ease-in-out;
+}
+
+#modal .inputs .file .remove {
+  cursor: pointer;
+}
+
+#modal .inputs .file:hover {
+  transition: background-color 250ms ease-in-out;
+  background-color: rgb(238, 238, 238);
+}
+
 @media only screen and (max-width: 900px) {
   #filesBox {
     height: calc(100vh - 24rem);
+  }
+
+  #filesBox .file,
+  #names {
+    grid-template-columns: 30% 30% 40%;
   }
 }
 

@@ -5,7 +5,6 @@ import { useCookies } from "react-cookie";
 import * as config from "../config";
 
 export default function Component() {
-  const [mounted, setMounted] = useState(false);
   const [cookies, setCookies] = useCookies();
 
   const [img, setImg] = useState(window.localStorage.getItem("pic") || "");
@@ -35,7 +34,6 @@ export default function Component() {
   useEffect(() => {
     loadData();
   }, []);
-  if (!mounted) return null;
 
   return (
     <div id="account">

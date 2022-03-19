@@ -11,27 +11,17 @@ export default function Component({
   onClick,
   showPreview,
   filePreview,
-
-  selectAll,
 }: {
   file: any;
   onContextMenu: any;
   onClick: any;
   showPreview: any;
   filePreview: any;
-
-  selectAll: any;
 }) {
   const { name, size, lastEdit, type, uuid } = file;
-  const baseType = type.split("/")[0];
 
   const [selected, setSelected] = useState(false);
-
   const router = useRouter();
-
-  useEffect(() => {
-    selectAll ? setSelected(true) : setSelected(false);
-  }, [selectAll]);
 
   return (
     <>
@@ -57,12 +47,6 @@ export default function Component({
         data-file={JSON.stringify(file)}
         draggable={true}
       >
-        <p
-          id="select"
-          onClick={() => (selected ? setSelected(false) : setSelected(true))}
-        >
-          {selected ? <Icon.XSquare size={16} /> : <Icon.Square size={16} />}
-        </p>
         {type == "telecloud/folder" ? (
           <Link href={router.asPath + "/" + encodeURI(name)}>
             <a id="iconName">
@@ -89,22 +73,29 @@ export default function Component({
             }}
           >
             <p id="icon">
-              {baseType == "image" ? (
+              {type == "image" ? (
                 <Icon.Image
                   style={{
                     marginRight: "0.5rem",
                     marginBottom: "-2px",
                   }}
                 />
-              ) : baseType == "video" ? (
-                <Icon.Video
+              ) : type == "video" ? (
+                <Icon.Film
                   style={{
                     marginRight: "0.5rem",
                     marginBottom: "-2px",
                   }}
                 />
-              ) : baseType == "audio" ? (
-                <Icon.Music
+              ) : type == "audio" ? (
+                <Icon.Speaker
+                  style={{
+                    marginRight: "0.5rem",
+                    marginBottom: "-2px",
+                  }}
+                />
+              ) : type == "text" ? (
+                <Icon.FileText
                   style={{
                     marginRight: "0.5rem",
                     marginBottom: "-2px",

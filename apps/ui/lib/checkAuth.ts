@@ -18,5 +18,9 @@ export async function checkAuth(context: GetServerSidePropsContext) {
     return false;
   }
 
+  if (config.isBeta && !json.data.beta.isTester) {
+    return false;
+  }
+
   return true;
 }

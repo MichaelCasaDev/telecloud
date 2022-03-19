@@ -11,7 +11,7 @@
 #settingsBox .item {
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 20rem 18rem;
+  grid-template-columns: 20rem 16rem;
   align-items: center;
 
   margin: 1.5rem auto;

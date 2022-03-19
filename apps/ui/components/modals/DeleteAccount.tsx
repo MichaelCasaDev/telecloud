@@ -67,7 +67,7 @@ export default function Modal_DeleteAccount({
               className="cancelChange"
               onClick={handleCloseClick}
             >
-              Cancel
+              Close
             </button>
             <button
               type="submit"

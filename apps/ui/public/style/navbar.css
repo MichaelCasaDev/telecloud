@@ -120,28 +120,36 @@
   }
 
   .navbar #links {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+
     background-color: rgb(235, 235, 235);
 
-    padding: 0.5rem 5rem 1rem 1rem;
+    padding: 1rem;
     border-radius: 10px;
 
     color: rgb(92, 92, 92);
 
-    width: calc(100% - 2rem);
+    width: calc(100%);
+    height: 100vh;
     z-index: 10;
     text-align: left;
 
     transform-origin: top right;
 
     position: absolute;
-    top: 1rem;
-    left: 1rem;
+    top: 0;
+    left: 0;
     margin: 0;
   }
 
   .navbar #links .close {
     display: block;
+
+    margin: 2rem;
   }
 
   .navbar .no {
@@ -164,14 +172,6 @@
     font-size: 1em;
     padding: 0;
     text-align: left;
-  }
-
-  .navbar .close {
-    float: right;
-    border: none;
-    cursor: pointer;
-    margin-right: -2.75rem;
-    margin-top: 1.5rem;
   }
 
   .navbar #links .button {

@@ -70,7 +70,7 @@ export default function Modal_ConfirmStarter({
                 color: "#f65c5c",
               }}
             >
-              Cancel
+              Close
             </button>
             <button type="submit" className="submitChange">
               Confirm

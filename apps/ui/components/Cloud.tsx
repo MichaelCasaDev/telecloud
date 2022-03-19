@@ -29,6 +29,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
   const [cookies, setCookies] = useCookies();
 
   const [preview, setPreview] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { theme, setTheme } = useTheme();
   const [me, setMe] = useState(
     JSON.parse(window.localStorage.getItem("me") || "{}")
@@ -394,6 +395,15 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
           toastId: toastId,
         });
       }
+    } else if (filesX instanceof Array) {
+      for (let i = 0; i < filesX.length; i++) {
+        await sendData({
+          lastEdit: new Date(Date.now()).getTime(),
+          file: filesX[i],
+          isFolder: false,
+          toastId: toastId,
+        });
+      }
     } else {
       await sendData({
         lastEdit: new Date(Date.now()).getTime(),
@@ -572,6 +582,8 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
 
     setMe(json1.data);
     window.localStorage.setItem("me", JSON.stringify(json1.data));
+
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -700,8 +712,6 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
               setSortType={setSortType}
               sortOrder={sortOrder}
               setSortOrder={setSortOrder}
-              selectAll={selectAll}
-              setSelectAll={setSelectAll}
             />
           </p>
           <Account />
@@ -719,10 +729,13 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
 
             setPos({
               x:
-                e.screenX + 160 < document.body.offsetWidth
-                  ? e.screenX
-                  : e.screenX - 160,
-              y: e.screenY,
+                e.clientX < window.innerWidth - 200
+                  ? e.clientX
+                  : e.clientX - 180,
+              y:
+                e.clientY < window.innerHeight - 340
+                  ? e.clientY
+                  : e.clientY - 290,
               file: false,
               path: path,
             });
@@ -782,13 +795,20 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
             }
           }}
         >
-          {files && files.length > 0 ? (
+          {isLoading ? (
+            <p
+              style={{
+                textAlign: "center",
+              }}
+            >
+              Loading ...
+            </p>
+          ) : files && files.length > 0 ? (
             files
               .map((file: any, i: number) => {
                 return (
                   <File
                     file={file}
-                    selectAll={selectAll}
                     key={"route_" + i}
                     onClick={() => {
                       show == "yes" ? setShow("no") : null;
@@ -800,10 +820,13 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
                       setSelectedFiles([file]);
                       setPos({
                         x:
-                          e.screenX + 160 < document.body.offsetWidth
-                            ? e.screenX
-                            : e.screenX - 160,
-                        y: e.screenY,
+                          e.clientX < window.innerWidth - 200
+                            ? e.clientX
+                            : e.clientX - 180,
+                        y:
+                          e.clientY < window.innerHeight - 340
+                            ? e.clientY
+                            : e.clientY - 290,
                         file: file,
                         path:
                           file.type == "telecloud/folder"

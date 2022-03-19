@@ -24,55 +24,41 @@ export function formatSizeUnits(bytes: any) {
   return bytes;
 }
 
-export function formatDate(date: string) {
-  var lDate = new Date(Number(date));
+export function formatDate(
+  date: Date | number,
+  lang = "en" //navigator.language
+): string {
+  const minute = 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+  const week = day * 7;
+  const month = day * 30;
+  const year = day * 365;
 
-  var month = new Array(12);
-  month[0] = "January";
-  month[1] = "February";
-  month[2] = "March";
-  month[3] = "April";
-  month[4] = "May";
-  month[5] = "June";
-  month[6] = "July";
-  month[7] = "August";
-  month[8] = "September";
-  month[9] = "October";
-  month[10] = "November";
-  month[11] = "December";
+  const time = date instanceof Date ? date.getTime() : date;
+  const delta = Math.round((time - Date.now()) / 1000);
+  const absoluteDelta = Math.abs(delta);
+  const times: [number, Intl.RelativeTimeFormatUnit, number][] = [
+    [minute, "second", 1],
+    [hour, "minute", minute],
+    [day, "hour", hour],
+    [week, "day", day],
+    [month, "week", week],
+    [year, "month", month],
+    [Infinity, "year", year],
+  ];
+  let divider = year;
+  let timeType: Intl.RelativeTimeFormatUnit = "year";
+  for (const [num, timeInterval, div] of times) {
+    if (absoluteDelta < num) {
+      divider = div;
+      timeType = timeInterval;
+      break;
+    }
+  }
+  const rtf = new Intl.RelativeTimeFormat(lang, {
+    numeric: "auto",
+  });
 
-  var weekday = new Array(7);
-  weekday[0] = "Sunday";
-  weekday[1] = "Monday";
-  weekday[2] = "Tuesday";
-  weekday[3] = "Wednesday";
-  weekday[4] = "Thursday";
-  weekday[5] = "Friday";
-  weekday[6] = "Saturday";
-
-  var hh = lDate.getHours() < 10 ? "0" + lDate.getHours() : lDate.getHours();
-  var mi =
-    lDate.getMinutes() < 10 ? "0" + lDate.getMinutes() : lDate.getMinutes();
-  var ss =
-    lDate.getSeconds() < 10 ? "0" + lDate.getSeconds() : lDate.getSeconds();
-
-  var d = lDate.getDate();
-  var dd = d < 10 ? "0" + d : d;
-  var yyyy = lDate.getFullYear();
-  var mon = eval(String(lDate.getMonth() + 1));
-  var monthName = month[lDate.getMonth()];
-
-  return (
-    dd +
-    " " +
-    monthName.substring(0, 3) +
-    " " +
-    yyyy +
-    " " +
-    hh +
-    ":" +
-    mi +
-    ":" +
-    ss
-  );
+  return rtf.format(Math.floor(delta / divider), timeType);
 }

@@ -8,9 +8,6 @@ export default function Component({
 
   sortOrder,
   setSortOrder,
-
-  selectAll,
-  setSelectAll,
 }: any) {
   const [cookies, setCookies] = useCookies();
 
@@ -29,12 +26,6 @@ export default function Component({
 
   return (
     <div id="names">
-      <p
-        id="select"
-        onClick={() => (selectAll ? setSelectAll(false) : setSelectAll(true))}
-      >
-        {selectAll ? <Icon.XSquare size={16} /> : <Icon.Square size={16} />}
-      </p>
       <p
         className="sort"
         onClick={() => {

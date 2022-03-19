@@ -24,6 +24,8 @@ export default function Modal_CreateFolder({
 
     onFolderCreateHandler({
       name: name,
+    }).then(() => {
+      setName("");
     });
   }
 
@@ -62,7 +64,7 @@ export default function Modal_CreateFolder({
               className="cancelChange"
               onClick={handleCloseClick}
             >
-              Cancel
+              Close
             </button>
             <button type="submit" className="submitChange">
               Create

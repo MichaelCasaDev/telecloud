@@ -54,7 +54,7 @@ module.exports = {
         /* ####################### */
         if (String(isFolder[0]) == "true") {
           // Check folder name length
-          if (name[0].length > 32 || name[0].length < 5) {
+          if (name[0].toString().length > 32 || name[0].toString().length < 5) {
             return res.status(500).json({
               err: "Folder name invalid! (Max 32 chars, Min 6 chars)",
             });
@@ -256,6 +256,32 @@ module.exports = {
             });
           }
 
+          var type = "other";
+          if (
+            fileX.headers["content-type"].includes("video") ||
+            fileX.originalFilename.match(/\.mp4$/gi) ||
+            fileX.originalFilename.match(/\.mkv$/gi) ||
+            fileX.originalFilename.match(/\.mov$/gi)
+          ) {
+            type = "video";
+          } else if (
+            fileX.headers["content-type"].includes("pdf") ||
+            fileX.originalFilename.match(/\.doc$/gi) ||
+            fileX.originalFilename.match(/\.docx$/gi) ||
+            fileX.originalFilename.match(/\.xls$/gi) ||
+            fileX.originalFilename.match(/\.xlsx$/gi)
+          ) {
+            type = "document";
+          } else if (
+            fileX.headers["content-type"].includes("audio") ||
+            fileX.originalFilename.match(/\.mp3$/gi) ||
+            fileX.originalFilename.match(/\.ogg$/gi)
+          ) {
+            type = "audio";
+          } else if(fileX.headers["content-type"].includes("text")) {
+            type = "text"
+          }
+
           // Create file in the database
           await db.collection(configX.database.collections.files).insertOne({
             uuid: String(fileUuid),
@@ -263,7 +289,7 @@ module.exports = {
             name: String(fileX.originalFilename),
             size: String(chunks.size),
             parts: String(chunks.telegramIds.length),
-            type: String(fileX.headers["content-type"]),
+            type: String(type),
             lastEdit: String(lastEdit[0]),
           });
 
