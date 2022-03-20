@@ -2,6 +2,8 @@
   font-size: 26px;
   font-weight: bold;
   margin: 0;
+
+  width: 80%;
 }
 
 .container #header #name {

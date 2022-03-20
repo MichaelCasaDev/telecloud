@@ -5,6 +5,7 @@ import { telegramClientLogin, isAuthorized } from "../../../lib/telegram";
 import { asyncForEach } from "../../../lib/utils";
 import * as config from "../../../config";
 import { filesFromPath } from "../../../lib/filesFromPath";
+import { FileExpInterface, UserInterface } from "../../../lib/types";
 
 module.exports = {
   path: "/api/file/delete",
@@ -25,35 +26,35 @@ module.exports = {
         },
       });
     }
-    const file: any = await db
+    const file = (await db
       .collection(config.database.collections.files)
       .findOne({
         uuid: String(uuid),
-      });
+      })) as any as FileExpInterface;
 
     // A Folder
     if (file && file.type == "telecloud/folder") {
-      const user: any = await db
+      const user = (await db
         .collection(config.database.collections.users)
         .findOne({
           telegramId: String(((await telegramClient.getMe()) as any).id),
-        });
+        })) as any as UserInterface;
 
       // Find the folders and subfolders and save ALL files
       let { files, totFolders, totFiles, totSpace } = await filesFromPath(
         path,
         user,
-        file,
-        db
+        db,
+        file
       );
 
       // Delete from database and telegram
-      await asyncForEach(files, async (e: any, i: number) => {
-        const fileX: any = await db
+      await asyncForEach(files, async (e: FileExpInterface, i: number) => {
+        const fileX = (await db
           .collection(config.database.collections.files)
           .findOne({
             uuid: String(e.uuid),
-          });
+          })) as any as FileExpInterface;
 
         // Remove files from database
         await db.collection(config.database.collections.files).deleteOne({
@@ -140,11 +141,11 @@ module.exports = {
       /* ####################### */
       // Update users stats
       /* ####################### */
-      const user: any = await db
+      const user = (await db
         .collection(config.database.collections.users)
         .findOne({
           telegramId: String(((await telegramClient.getMe()) as any).id),
-        });
+        })) as any as UserInterface;
 
       await db.collection(config.database.collections.users).updateOne(
         {

@@ -9,6 +9,7 @@ import * as configX from "../../../config";
 import { v4 as uuidv4 } from "uuid";
 import { ObjectId } from "mongodb";
 import { tmpdir } from "os";
+import { UserInterface } from "../../../lib/types";
 
 module.exports = {
   path: "/api/file/upload",
@@ -101,11 +102,11 @@ module.exports = {
             /* ####################### */
             // Update users stats
             /* ####################### */
-            const user: any = await db
+            const user = (await db
               .collection(configX.database.collections.users)
               .findOne({
                 telegramId: String(((await telegramClient.getMe()) as any).id),
-              });
+              })) as any as UserInterface;
 
             await db.collection(configX.database.collections.users).updateOne(
               {
@@ -155,11 +156,11 @@ module.exports = {
         };
 
         try {
-          const user: any = await db
+          const user = (await db
             .collection(configX.database.collections.users)
             .findOne({
               telegramId: String(((await telegramClient.getMe()) as any).id),
-            });
+            })) as any as UserInterface;
 
           // Check if file name is available (TODO: also done from client-side)
           if (
@@ -256,7 +257,7 @@ module.exports = {
             });
           }
 
-          var type = "other";
+          var type: string = "other";
           if (
             fileX.headers["content-type"].includes("video") ||
             fileX.originalFilename.match(/\.mp4$/gi) ||
@@ -264,6 +265,14 @@ module.exports = {
             fileX.originalFilename.match(/\.mov$/gi)
           ) {
             type = "video";
+          } else if (
+            fileX.headers["content-type"].includes("video") ||
+            fileX.originalFilename.match(/\.png$/gi) ||
+            fileX.originalFilename.match(/\.jpg$/gi) ||
+            fileX.originalFilename.match(/\.jpeg$/gi) ||
+            fileX.originalFilename.match(/\.svg$/gi)
+          ) {
+            type = "image";
           } else if (
             fileX.headers["content-type"].includes("pdf") ||
             fileX.originalFilename.match(/\.doc$/gi) ||
@@ -278,8 +287,8 @@ module.exports = {
             fileX.originalFilename.match(/\.ogg$/gi)
           ) {
             type = "audio";
-          } else if(fileX.headers["content-type"].includes("text")) {
-            type = "text"
+          } else if (fileX.headers["content-type"].includes("text")) {
+            type = "text";
           }
 
           // Create file in the database
@@ -290,6 +299,7 @@ module.exports = {
             size: String(chunks.size),
             parts: String(chunks.telegramIds.length),
             type: String(type),
+            mimeType: String(fileX.headers["content-type"]),
             lastEdit: String(lastEdit[0]),
           });
 

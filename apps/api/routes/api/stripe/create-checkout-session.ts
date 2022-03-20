@@ -3,6 +3,7 @@ import { connectToDatabase } from "../../../lib/database";
 import { stripeClientLogin } from "../../../lib/stripe";
 import { telegramClientLogin } from "../../../lib/telegram";
 import * as config from "../../../config";
+import { UserInterface } from "../../../lib/types";
 
 module.exports = {
   path: "/api/stripe/create-checkout-session",
@@ -17,9 +18,9 @@ module.exports = {
       );
 
       const me = await telegramClient.getMe();
-      const result: any = await db
+      const result = await db
         .collection(config.database.collections.users)
-        .findOne({ telegramId: String((me as any).id) });
+        .findOne({ telegramId: String((me as any).id) }) as any as UserInterface;
 
       if (!result) {
         return res.status(400).json({

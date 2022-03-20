@@ -3,6 +3,7 @@ import { connectToDatabase } from "../../../lib/database";
 import { telegramClientLogin, isAuthorized } from "../../../lib/telegram";
 import * as config from "../../../config";
 import { stripeClientLogin } from "../../../lib/stripe";
+import { UserInterface } from "../../../lib/types";
 
 module.exports = {
   path: "/api/user/update",
@@ -27,9 +28,9 @@ module.exports = {
 
     try {
       const me: any = await telegramClient.getMe();
-      const result: any = await db
+      const result = await db
         .collection(config.database.collections.users)
-        .findOne({ telegramId: String((me as any).id) });
+        .findOne({ telegramId: String((me as any).id) }) as any as UserInterface;
 
       // Update user settings
       if (result) {

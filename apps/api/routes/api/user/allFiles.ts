@@ -3,6 +3,7 @@ import { connectToDatabase } from "../../../lib/database";
 import { telegramClientLogin, isAuthorized } from "../../../lib/telegram";
 import * as config from "../../../config";
 import { filesFromPath } from "../../../lib/filesFromPath";
+import { UserInterface } from "../../../lib/types";
 
 module.exports = {
   path: "/api/user/allfiles",
@@ -26,9 +27,11 @@ module.exports = {
 
     try {
       const me = await telegramClient.getMe();
-      const user: any = await db
+      const user = (await db
         .collection(config.database.collections.users)
-        .findOne({ telegramId: String((me as any).id) });
+        .findOne({
+          telegramId: String((me as any).id),
+        })) as any as UserInterface;
 
       let exist: boolean = path == "/" ? true : false;
 
@@ -36,7 +39,6 @@ module.exports = {
       let { files, totFolders, totFiles, totSpace } = await filesFromPath(
         path,
         user,
-        null,
         db
       );
 

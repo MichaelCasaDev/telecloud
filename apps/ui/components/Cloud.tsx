@@ -13,7 +13,7 @@ import * as config from "../config";
 import EditName from "../components/modals/EditName";
 import DeleteFile from "../components/modals/DeleteFile";
 import axios from "axios";
-import SettingsBox from "../components/SettingsBox";
+import SettingsBox from "./ContextMenuBox";
 import Preview from "./Preview";
 import FileSaver from "file-saver";
 import { useTheme } from "next-themes";
@@ -677,10 +677,10 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
         ratio={0}
         onSelect={(e) => {
           e.added.forEach((el) => {
-            el.classList.add("selected", "useThisFile");
+            el.classList.add("selected");
           });
           e.removed.forEach((el) => {
-            el.classList.remove("selected", "useThisFile");
+            el.classList.remove("selected");
           });
         }}
         onSelectEnd={(e) => {
@@ -698,22 +698,16 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
 
       <div className="container">
         <div id="header">
-          <p
-            style={{
-              width: "100%",
-              margin: "0",
-            }}
-          >
-            <h1>Cloud</h1>
-            {routeNavigator}
+          <h1>Cloud</h1>
+          {routeNavigator}
 
-            <SortHeader
-              sortType={sortType}
-              setSortType={setSortType}
-              sortOrder={sortOrder}
-              setSortOrder={setSortOrder}
-            />
-          </p>
+          <SortHeader
+            sortType={sortType}
+            setSortType={setSortType}
+            sortOrder={sortOrder}
+            setSortOrder={setSortOrder}
+          />
+
           <Account />
         </div>
 
@@ -773,26 +767,32 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
             }
 
             // Move files with drag-and-drop
-            if (
-              (e.target as any).dataset.isFolder == "true" // Move to a folder
+            var t = e.target;
+            // Find the drop target
+            while (
+              t != null &&
+              (t as any).dataset != null &&
+              (t as any).dataset.isfolder != "true"
             ) {
-              // Get files dragged and selected
-              const arr: any[] = [];
-              const el = document.getElementsByClassName("file useThisFile");
-
-              for (let i = 0; i < el.length; i++) {
-                arr.push(JSON.parse((el.item(i) as any).dataset.file || "{}"));
-              }
-
-              // Generate the path to the folder
-              const newPath =
-                path != "/"
-                  ? path + "/" + (e.target as any).dataset.uri
-                  : path + (e.target as any).dataset.uri;
-
-              moveFile("cut", arr);
-              pasteFile(newPath);
+              t = (t as any).parentNode;
             }
+
+            // Get files dragged and selected
+            const arr: any[] = [];
+            const el = document.getElementsByClassName("file selected");
+
+            for (let i = 0; i < el.length; i++) {
+              arr.push(JSON.parse((el.item(i) as any).dataset.file || "{}"));
+            }
+
+            // Generate the path to the folder
+            const newPath =
+              path != "/"
+                ? path + "/" + (t as any).dataset.uri
+                : path + (t as any).dataset.uri;
+
+            moveFile("cut", arr);
+            pasteFile(newPath);
           }}
         >
           {isLoading ? (
@@ -812,6 +812,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
                     key={"route_" + i}
                     onClick={() => {
                       show == "yes" ? setShow("no") : null;
+                      setSelectedFiles([file]);
                     }}
                     onContextMenu={(e: MouseEvent) => {
                       e.preventDefault();
@@ -837,7 +838,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
                       // Get files selected
                       const arr = [];
                       const el =
-                        document.getElementsByClassName("file useThisFile");
+                        document.getElementsByClassName("file selected");
 
                       for (let i = 0; i < el.length; i++) {
                         arr.push(

@@ -5,6 +5,7 @@ import * as config from "../../../config";
 import { asyncForEach } from "../../../lib/utils";
 import { Api } from "telegram";
 import { stripeClientLogin } from "../../../lib/stripe";
+import { FileInterface, UserInterface } from "../../../lib/types";
 
 module.exports = {
   path: "/api/user/delete",
@@ -29,9 +30,9 @@ module.exports = {
 
     try {
       const me = await telegramClient.getMe();
-      const result: any = await db
+      const result = await db
         .collection(config.database.collections.users)
-        .findOne({ telegramId: String((me as any).id) });
+        .findOne({ telegramId: String((me as any).id) }) as any as UserInterface;
 
       if (result) {
         // Delete from users
@@ -40,7 +41,7 @@ module.exports = {
           .deleteOne({ telegramId: String((me as any).id) });
 
         // Delete from files
-        await asyncForEach(result.files, async (e: any, i: number) => {
+        await asyncForEach(result.files, async (e: FileInterface, i: number) => {
           await db
             .collection(config.database.collections.files)
             .deleteOne({ uuid: String(e.uuid) });

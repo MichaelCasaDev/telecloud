@@ -3,6 +3,7 @@ import { connectToDatabase } from "../../../lib/database";
 import { telegramClientLogin, isAuthorized } from "../../../lib/telegram";
 import { asyncForEach } from "../../../lib/utils";
 import * as config from "../../../config";
+import { FileExpInterface, FileInterface, UserInterface } from "../../../lib/types";
 
 module.exports = {
   path: "/api/user/files",
@@ -26,17 +27,17 @@ module.exports = {
 
     try {
       const me = await telegramClient.getMe();
-      const user: any = await db
+      const user = await db
         .collection(config.database.collections.users)
-        .findOne({ telegramId: String((me as any).id) });
+        .findOne({ telegramId: String((me as any).id) }) as any as UserInterface;
 
-      let allFiles: any[] = [];
+      let allFiles: FileExpInterface[] = [];
       let exist: boolean = path == "/" ? true : false;
 
-      await asyncForEach(user.files, async (e: any, i: number) => {
-        const file: any = await db
+      await asyncForEach(user.files, async (e: FileInterface, i: number) => {
+        const file = await db
           .collection("files")
-          .findOne({ uuid: String(e.uuid) });
+          .findOne({ uuid: String(e.uuid) }) as any as FileExpInterface;
 
         if (file && e.path == path) {
           allFiles.push(file);

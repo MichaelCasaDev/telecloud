@@ -5,6 +5,7 @@ import * as config from "../../../config";
 import { isNameAvailable } from "../../../lib/isNameAvailable";
 import { v4 as uuidv4 } from "uuid";
 import { FileLike } from "telegram/define";
+import { FileExpInterface, FileInterface, UserInterface } from "../../../lib/types";
 
 module.exports = {
   path: "/api/file/move",
@@ -38,12 +39,12 @@ module.exports = {
 
     try {
       const me = await telegramClient.getMe();
-      const user: any = await db
+      const user = await db
         .collection("users")
-        .findOne({ telegramId: String((me as any).id) });
+        .findOne({ telegramId: String((me as any).id) })  as any as UserInterface;
 
       // Check if file is in user array
-      user.files.forEach((e: any) => {
+      user.files.forEach((e: FileInterface) => {
         if (e.uuid == uuid) found = true;
       });
 
@@ -59,7 +60,7 @@ module.exports = {
         .collection(config.database.collections.files)
         .findOne({
           uuid: String(uuid),
-        });
+        }) as any as FileExpInterface;
 
       if (!result) {
         return res.status(404).json({
@@ -163,6 +164,7 @@ module.exports = {
             name: String(result.name),
             size: String(result.size),
             type: String(result.type),
+            mimeType: String(result.mimeType),
             lastEdit: String(result.lastEdit),
             isFolder: Boolean(false),
           });

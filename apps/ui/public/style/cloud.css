@@ -98,7 +98,7 @@
 }
 
 #filesBox .file.selected {
-  background-color: #8bbff3;
+  background-color: #4895ef;
 
   transition: background-color 400ms ease-in-out;
 }

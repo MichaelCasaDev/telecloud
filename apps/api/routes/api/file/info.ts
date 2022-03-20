@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { connectToDatabase } from "../../../lib/database";
 import { telegramClientLogin, isAuthorized } from "../../../lib/telegram";
 import * as config from "../../../config";
+import { FileExpInterface, FileInterface, UserInterface } from "../../../lib/types";
 
 module.exports = {
   path: "/api/file/info",
@@ -28,12 +29,12 @@ module.exports = {
 
     try {
       const me = await telegramClient.getMe();
-      const user: any = await db
+      const user = await db
         .collection("users")
-        .findOne({ telegramId: String((me as any).id) });
+        .findOne({ telegramId: String((me as any).id) })  as any as UserInterface;
 
       // Check if file is in user array
-      user.files.forEach((e: any) => {
+      user.files.forEach((e: FileInterface) => {
         if (e.uuid == id) found = true;
       });
 
@@ -48,7 +49,7 @@ module.exports = {
         .collection(config.database.collections.files)
         .findOne({
           uuid: String(id),
-        });
+        }) as any as FileExpInterface;
 
       if (result) {
         return res

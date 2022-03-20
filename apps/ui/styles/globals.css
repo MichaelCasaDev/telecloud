@@ -2,6 +2,13 @@
 
 * {
   font-family: "Inter", sans-serif;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 html,
@@ -52,10 +59,6 @@ a {
   padding-top: 4rem;
   padding-bottom: 1rem;
   background-color: white;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 
   z-index: 4;
 }

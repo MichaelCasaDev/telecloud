@@ -129,7 +129,7 @@
 }
 
 #fileDestination .chat {
-  background-color: #e2e2e2;
+  background-color: rgb(238, 238, 238);
   color: black;
   cursor: pointer;
 

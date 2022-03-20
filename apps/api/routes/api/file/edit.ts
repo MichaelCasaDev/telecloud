@@ -3,6 +3,7 @@ import { connectToDatabase } from "../../../lib/database";
 import { isNameAvailable } from "../../../lib/isNameAvailable";
 import { telegramClientLogin, isAuthorized } from "../../../lib/telegram";
 import * as config from "../../../config";
+import { FileExpInterface } from "../../../lib/types";
 
 module.exports = {
   path: "/api/file/edit",
@@ -33,11 +34,11 @@ module.exports = {
       });
     }
 
-    const file: any = await db
+    const file = await db
       .collection(config.database.collections.files)
       .findOne({
         uuid: String(uuid),
-      });
+      }) as any as FileExpInterface;
 
     if (file.type == "telecloud/folder") {
       return res.status(500).json({

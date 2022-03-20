@@ -1,14 +1,15 @@
 import { Request, Response } from "express";
+import { WithId } from "mongodb";
 import Stripe from "stripe";
 import { TelegramClientParams } from "telegram/client/telegramBaseClient";
 
-export type TelegramAuthType = {
+export interface TelegramAuthType {
   apiId: number;
   apiHash: string;
   settings: TelegramClientParams;
-};
+}
 
-export type DatabaseAuthType = {
+export interface DatabaseAuthType {
   url: string;
   collections: {
     files: string;
@@ -17,33 +18,34 @@ export type DatabaseAuthType = {
     betaAccounts: string;
   };
   statisticsId: string;
-};
+}
 
-export type RouteModuleInterface = {
+export interface RouteModuleInterface {
   path: string;
   handler: (req: Request, res: Response) => Promise<void>;
-};
+}
 
-export type StripeInterface = {
+export interface StripeInterface {
   apiKey: string;
   configuration: Stripe.StripeConfig;
-};
+}
 
-export type FileExpInterface = {
+export interface FileExpInterface extends WithId<Document> {
   uuid: string;
   telegramIds: string[];
   name: string;
   size: string;
   type: string;
+  mimeType: string;
   lastEdit: string;
-};
+}
 
-export type FileInterface = {
+export interface FileInterface {
   uuid: string;
   path: string;
-};
+}
 
-export type UserInterface = {
+export interface UserInterface extends WithId<Document> {
   uuid: string;
   telegramId: string;
   telegramToken: string;
@@ -88,4 +90,4 @@ export type UserInterface = {
     requestDate: string;
     acceptDate: string;
   };
-};
+}

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { connectToDatabase } from "../../../lib/database";
 import { telegramClientLogin, isAuthorized } from "../../../lib/telegram";
 import * as config from "../../../config";
+import { FileExpInterface } from "../../../lib/types";
 
 module.exports = {
   path: "/api/file/get/:name",
@@ -30,11 +31,11 @@ module.exports = {
 
     try {
       // Get file datas from database
-      const file: any = await db
+      const file = await db
         .collection(config.database.collections.files)
         .findOne({
           uuid: String(uuid),
-        });
+        }) as any as FileExpInterface;
 
       // TODO: Implement support to download folders (need to zip files and then send to the client)
       if (file.type == "telecloud/folder") {
@@ -45,7 +46,7 @@ module.exports = {
       }
 
       // Download the file from telegram
-      const fileName = file.name.replaceAll(
+      const fileName = file.name.replace(
         /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
         ""
       );
