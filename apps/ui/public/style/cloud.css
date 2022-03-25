@@ -69,7 +69,7 @@
 #names {
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 60% 15% 25%;
+  grid-template-columns: 65% 15% 20%;
 
   width: 100%;
   align-items: center;
@@ -98,7 +98,7 @@
 }
 
 #filesBox .file.selected {
-  background-color: #4895ef;
+  background-color: #8ec2ff;
 
   transition: background-color 400ms ease-in-out;
 }
@@ -276,7 +276,7 @@
 
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
-  background-color: rgba(20, 23, 26, 0.4);
+  background-color: rgba(0, 0, 0, 0.48);
 
   display: flex;
   flex-direction: column;
@@ -362,11 +362,6 @@
 @media only screen and (max-width: 900px) {
   #filesBox {
     height: calc(100vh - 24rem);
-  }
-
-  #filesBox .file,
-  #names {
-    grid-template-columns: 30% 30% 40%;
   }
 }
 

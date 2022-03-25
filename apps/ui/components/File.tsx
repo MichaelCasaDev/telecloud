@@ -26,21 +26,17 @@ export default function Component({
   return (
     <>
       <div
-        className={classNames(
-          "file",
-          selected ? "selected" : "",
-          selected ? "useThisFile" : ""
-        )}
+        className={classNames("file", selected ? "selected" : "")}
         id={uuid}
         onContextMenu={(e) => {
           onContextMenu(e);
         }}
         onClick={() => onClick()}
         onDragStart={(e) => {
-          e.currentTarget.classList.add("useThisFile");
+          e.currentTarget.classList.add("selected");
         }}
         onDragEnd={(e) => {
-          e.currentTarget.classList.remove("useThisFile");
+          e.currentTarget.classList.remove("selected");
         }}
         data-isFolder={type == "telecloud/folder"}
         data-uri={encodeURI(name)}

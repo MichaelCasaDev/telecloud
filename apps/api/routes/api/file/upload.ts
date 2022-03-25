@@ -55,15 +55,21 @@ module.exports = {
         /* ####################### */
         if (String(isFolder[0]) == "true") {
           // Check folder name length
-          if (name[0].toString().length > 32 || name[0].toString().length < 5) {
+          if (String(name[0]).length > 32 || String(name[0]).length < 1) {
             return res.status(500).json({
-              err: "Folder name invalid! (Max 32 chars, Min 6 chars)",
+              err: "Folder name invalid! (Max 32 chars, Min 1 chars)",
             });
           }
 
           // Check if folder name is available
           if (
-            !(await isNameAvailable(db, telegramClient, name[0], path[0], true))
+            !(await isNameAvailable(
+              db,
+              telegramClient,
+              String(name[0]),
+              String(path[0]),
+              true
+            ))
           ) {
             return res.status(500).json({
               stringSession: telegramClient.session.save(),

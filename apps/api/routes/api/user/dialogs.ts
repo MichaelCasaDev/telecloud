@@ -45,11 +45,10 @@ module.exports = {
           ) {
             chats.push({
               name:
-                "@" + (chat.entity as any).username != "@null"
-                  ? "@" + (chat.entity as any).username
-                  : ((chat.entity as any).firstName || "") +
-                    " " +
-                    ((chat.entity as any).lastName || ""),
+                ((chat.entity as any).firstName || "") +
+                  " " +
+                  ((chat.entity as any).lastName || "") ||
+                "@" + (chat.entity as any).username,
               id: chat.entity.id,
             });
           }

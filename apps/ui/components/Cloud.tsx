@@ -167,7 +167,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
           uuid: el.uuid,
           stringSession: cookies[config.cookies.stringSession.name],
           name: newName,
-          lastEdit: new Date(Date.now()).getTime(),
+          lastEdit: el.lastEdit,
           path:
             router.asPath.replace("/cloud", "") == ""
               ? "/"
@@ -389,7 +389,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
     if (filesX instanceof FileList) {
       for (let i = 0; i < filesX.length; i++) {
         await sendData({
-          lastEdit: new Date(Date.now()).getTime(),
+          lastEdit: filesX.item(i)?.lastModified,
           file: filesX.item(i),
           isFolder: false,
           toastId: toastId,
@@ -398,7 +398,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
     } else if (filesX instanceof Array) {
       for (let i = 0; i < filesX.length; i++) {
         await sendData({
-          lastEdit: new Date(Date.now()).getTime(),
+          lastEdit: filesX[i]?.lastModified,
           file: filesX[i],
           isFolder: false,
           toastId: toastId,
@@ -406,7 +406,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
       }
     } else {
       await sendData({
-        lastEdit: new Date(Date.now()).getTime(),
+        lastEdit: filesX.lastModified,
         file: filesX,
         isFolder: false,
         toastId: toastId,
@@ -768,6 +768,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
 
             // Move files with drag-and-drop
             var t = e.target;
+
             // Find the drop target
             while (
               t != null &&
@@ -776,6 +777,8 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
             ) {
               t = (t as any).parentNode;
             }
+
+            if ((t as any) == document) return;
 
             // Get files dragged and selected
             const arr: any[] = [];
@@ -791,8 +794,7 @@ export default function Component({ routeNavigator }: { routeNavigator: any }) {
                 ? path + "/" + (t as any).dataset.uri
                 : path + (t as any).dataset.uri;
 
-            moveFile("cut", arr);
-            pasteFile(newPath);
+            moveFile("cut", arr).then(() => pasteFile(newPath));
           }}
         >
           {isLoading ? (

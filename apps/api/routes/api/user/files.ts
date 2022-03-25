@@ -61,7 +61,8 @@ module.exports = {
         return res.status(200).json({
           stringSession: telegramClient.session.save(),
           data: allFiles,
-          exist,
+          //exist,
+          exist: true,
         });
       } else {
         return res.status(400).json({

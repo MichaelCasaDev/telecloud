@@ -20,13 +20,15 @@ export async function isNameAvailable(
       uuid: String(e.uuid),
     })) as any as FileExpInterface;
 
-    const isFolder0: boolean = fileA.type == "telecloud/folder";
+    if(fileA) {
+      const isFolder0: boolean = fileA.type == "telecloud/folder";
 
-    if (
-      (fileA.name == name && e.path == path && isFolder0 && isFolder) || // For files
-      (fileA.name == name && e.path == path && !isFolder0 && !isFolder) // For folders
-    ) {
-      available = false;
+      if (
+        (fileA.name == name && e.path == path && isFolder0 && isFolder) || // For files
+        (fileA.name == name && e.path == path && !isFolder0 && !isFolder) // For folders
+      ) {
+        available = false;
+      }
     }
   });
 
