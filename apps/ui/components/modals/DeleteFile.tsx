@@ -40,11 +40,14 @@ export default function Modal_DeleteFile({
       </Head>
 
       <div className="internalModal">
-        <p className="boxTitle">Delete {files.length == 1 ? files[0].name : files.length + " elements"}</p>
+        <p className="boxTitle">
+          {"Delete " +
+            (files.length == 1 ? files[0].name : files.length + " elements")}
+        </p>
         <form onSubmit={submitHandler}>
           <div className="inputs">
+            <p>This will completely delete files or folders.</p>
             <p>
-              This will completely delete files or folders.{" "}
               <b>This can&apos;t be undone!</b>
             </p>
           </div>

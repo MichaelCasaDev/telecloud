@@ -23,15 +23,15 @@ module.exports = {
     try {
       const result = await telegramClient.getMe();
       const buff = await telegramClient.downloadProfilePhoto(result);
-      const base64 = buff.toString("base64");
 
-      if (result) {
+      if (result && buff) {
+        const base64 = buff.toString("base64");
+
         return res
           .status(200)
           .json({ stringSession: telegramClient.session.save(), data: base64 });
       } else {
         return res.status(400).json({
-          stringSession: telegramClient.session.save(),
           err: "USER_NOT_FOUND",
         });
       }

@@ -71,7 +71,9 @@ export default function Modal_CreateFile({
                 placeholder="Files"
                 required={true}
                 multiple={true}
-                onChange={(e: any) => setFile(e.target.files)}
+                onChange={(e: any) =>
+                  setFile(e.target.files.length != 0 ? e.target.files : file)
+                }
                 style={{
                   opacity: "0",
                   position: "absolute",
@@ -114,7 +116,7 @@ export default function Modal_CreateFile({
                 <p
                   style={{
                     fontSize: "14px",
-                    padding: "1rem"
+                    padding: "1rem",
                   }}
                 >
                   {"Total: " + file.length}

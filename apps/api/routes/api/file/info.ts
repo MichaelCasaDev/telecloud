@@ -40,7 +40,6 @@ module.exports = {
 
       if (!found) {
         return res.status(404).json({
-          stringSession: telegramClient.session.save(),
           err: "File not found!!",
         });
       }
@@ -57,7 +56,6 @@ module.exports = {
           .json({ stringSession: telegramClient.session.save(), result });
       } else {
         return res.status(404).json({
-          stringSession: telegramClient.session.save(),
           err: "File not found!!",
         });
       }

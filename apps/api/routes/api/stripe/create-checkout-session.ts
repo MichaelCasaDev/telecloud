@@ -24,7 +24,6 @@ module.exports = {
 
       if (!result) {
         return res.status(400).json({
-          stringSession: telegramClient.session.save(),
           err: "USER_NOT_FOUND",
         });
       }

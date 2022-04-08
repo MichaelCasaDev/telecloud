@@ -44,7 +44,6 @@ module.exports = {
 
       if (user) {
         return res.status(200).json({
-          stringSession: telegramClient.session.save(),
           data: {
             files,
             totFolders,
@@ -55,7 +54,6 @@ module.exports = {
         });
       } else {
         return res.status(400).json({
-          stringSession: telegramClient.session.save(),
           err: "USER_NOT_FOUND",
         });
       }

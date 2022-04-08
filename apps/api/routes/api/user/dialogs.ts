@@ -59,7 +59,6 @@ module.exports = {
           .json({ stringSession: telegramClient.session.save(), data: chats });
       } else {
         return res.status(400).json({
-          stringSession: telegramClient.session.save(),
           err: "USER_NOT_FOUND",
         });
       }

@@ -172,12 +172,10 @@ module.exports = {
 
       if (file) {
         return res.status(200).json({
-          stringSession: telegramClient.session.save(),
           message: "File deleted!",
         });
       } else {
         return res.status(400).json({
-          stringSession: telegramClient.session.save(),
           err: "File(s) not found!!",
         });
       }

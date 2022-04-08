@@ -5,7 +5,11 @@ import * as config from "../../../config";
 import { isNameAvailable } from "../../../lib/isNameAvailable";
 import { v4 as uuidv4 } from "uuid";
 import { FileLike } from "telegram/define";
-import { FileExpInterface, FileInterface, UserInterface } from "../../../lib/types";
+import {
+  FileExpInterface,
+  FileInterface,
+  UserInterface,
+} from "../../../lib/types";
 
 module.exports = {
   path: "/api/file/move",
@@ -39,9 +43,9 @@ module.exports = {
 
     try {
       const me = await telegramClient.getMe();
-      const user = await db
-        .collection("users")
-        .findOne({ telegramId: String((me as any).id) })  as any as UserInterface;
+      const user = (await db.collection("users").findOne({
+        telegramId: String((me as any).id),
+      })) as any as UserInterface;
 
       // Check if file is in user array
       user.files.forEach((e: FileInterface) => {
@@ -50,22 +54,26 @@ module.exports = {
 
       if (!found) {
         return res.status(404).json({
-          stringSession: telegramClient.session.save(),
           err: "File not found!!",
         });
       }
 
       // Search file in db
-      const result = await db
+      const result = (await db
         .collection(config.database.collections.files)
         .findOne({
           uuid: String(uuid),
-        }) as any as FileExpInterface;
+        })) as any as FileExpInterface;
 
       if (!result) {
         return res.status(404).json({
-          stringSession: telegramClient.session.save(),
           err: "File not found!!",
+        });
+      }
+
+      if (result.type == "telecloud/folder") {
+        return res.status(300).json({
+          err: "Cannot move folder now!!",
         });
       }
 
@@ -79,7 +87,6 @@ module.exports = {
         ))
       ) {
         return res.status(500).json({
-          stringSession: telegramClient.session.save(),
           err: "File or folder name not available!",
         });
       }
@@ -196,6 +203,10 @@ module.exports = {
                 "usage.now.files": String(Number(user.usage.now.files) + 1),
                 "usage.now.space": String(
                   Number(user.usage.now.space) + Number(result.size)
+                ),
+                "usage.total.files": String(Number(user.usage.total.files) + 1),
+                "usage.total.space": String(
+                  Number(user.usage.total.space) + Number(result.size)
                 ),
               },
             }

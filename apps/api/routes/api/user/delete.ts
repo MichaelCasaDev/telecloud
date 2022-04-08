@@ -54,12 +54,10 @@ module.exports = {
         await stripeClient.customers.del(result.subscription.stripeId);
 
         return res.status(200).json({
-          stringSession: telegramClient.session.save(),
           data: "ALL data deleted!",
         });
       } else {
         return res.status(400).json({
-          stringSession: telegramClient.session.save(),
           err: "USER_NOT_FOUND",
         });
       }

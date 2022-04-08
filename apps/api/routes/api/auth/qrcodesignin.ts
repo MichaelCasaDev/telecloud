@@ -69,7 +69,6 @@ module.exports = {
           .json({ stringSession: telegramClient.session.save() });
       } else {
         return res.status(500).json({
-          stringSession: telegramClient.session.save(),
           err: {
             errorMessage: "No auth",
           },
