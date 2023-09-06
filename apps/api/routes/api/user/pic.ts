@@ -13,6 +13,7 @@ module.exports = {
     const telegramClient = await telegramClientLogin(stringSession || "");
 
     if (!(await isAuthorized(telegramClient))) {
+      await telegramClient.disconnect()
       return res.status(401).json({
         err: {
           errorMessage: "NOT_AUTHORIZED",
@@ -27,15 +28,18 @@ module.exports = {
       if (result && buff) {
         const base64 = buff.toString("base64");
 
+        await telegramClient.disconnect()
         return res
           .status(200)
           .json({ stringSession: telegramClient.session.save(), data: base64 });
       } else {
+        await telegramClient.disconnect()
         return res.status(400).json({
           err: "USER_NOT_FOUND",
         });
       }
     } catch (err) {
+      await telegramClient.disconnect()
       return res
         .status(500)
         .json({ stringSession: telegramClient.session.save(), err });

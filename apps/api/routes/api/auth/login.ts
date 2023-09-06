@@ -17,7 +17,7 @@ module.exports = {
     // User already authorized
     if (await isAuthorized(telegramClient)) {
       await createUserDatabase(db, telegramClient);
-
+      await telegramClient.disconnect()
       return res
         .status(200)
         .json({ stringSession: telegramClient.session.save() });
@@ -34,6 +34,7 @@ module.exports = {
           })
         );
       } catch (err) {
+        await telegramClient.disconnect()
         return res
           .status(500)
           .json({ stringSession: telegramClient.session.save(), err });
@@ -42,7 +43,7 @@ module.exports = {
       if (await isAuthorized(telegramClient)) {
         await createUserDatabase(db, telegramClient);
       }
-
+      await telegramClient.disconnect()
       return res
         .status(200)
         .json({ stringSession: telegramClient.session.save() });
@@ -81,10 +82,12 @@ module.exports = {
         await createUserDatabase(db, telegramClient);
       }
 
+      await telegramClient.disconnect()
       return res
         .status(200)
         .json({ stringSession: telegramClient.session.save() });
     } catch (err) {
+      await telegramClient.disconnect()
       return res
         .status(500)
         .json({ stringSession: telegramClient.session.save(), err });

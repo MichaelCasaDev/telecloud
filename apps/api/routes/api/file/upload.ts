@@ -406,7 +406,7 @@ module.exports = {
 
           // delete file from TMP folder
           await remove(fileX.path);
-
+          await telegramClient.disconnect()
           resolve(0);
           return res
             .status(200)
@@ -414,7 +414,7 @@ module.exports = {
         } catch (err) {
           // delete file from TMP folder
           await remove(fileX.path);
-
+          await telegramClient.disconnect()
           resolve(0);
           return res
             .status(500)

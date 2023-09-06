@@ -86,6 +86,7 @@ module.exports = {
           false
         ))
       ) {
+        await telegramClient.disconnect()
         return res.status(500).json({
           err: "File or folder name not available!",
         });
@@ -122,7 +123,7 @@ module.exports = {
               },
             }
           );
-
+          await telegramClient.disconnect()
           return res.status(200).json({
             stringSession: telegramClient.session.save(),
             data: "File moved (cut) successfully!",
@@ -211,20 +212,20 @@ module.exports = {
               },
             }
           );
-
+          await telegramClient.disconnect()
           return res.status(200).json({
             stringSession: telegramClient.session.save(),
             data: "File moved (copy) successfully!",
           });
         }
-        default: {
+        default: {await telegramClient.disconnect()
           return res.status(500).json({
             stringSession: telegramClient.session.save(),
             err: "Operation not valid!",
           });
         }
       }
-    } catch (err) {
+    } catch (err) {await telegramClient.disconnect()
       return res
         .status(500)
         .json({ stringSession: telegramClient.session.save(), err });

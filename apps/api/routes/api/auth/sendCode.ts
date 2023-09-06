@@ -20,12 +20,14 @@ module.exports = {
         })
       );
 
+      await telegramClient.disconnect()
       res.status(200).json({
         stringSession: telegramClient.session.save(),
         phoneCodeHash: result.phoneCodeHash,
         timeout: result.timeout || 0,
       });
     } catch (err) {
+      await telegramClient.disconnect()
       res
         .status(500)
         .json({ stringSession: telegramClient.session.save(), err: err });

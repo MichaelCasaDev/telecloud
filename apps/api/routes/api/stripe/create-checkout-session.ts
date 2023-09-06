@@ -23,6 +23,7 @@ module.exports = {
         .findOne({ telegramId: String((me as any).id) }) as any as UserInterface;
 
       if (!result) {
+        await telegramClient.disconnect()
         return res.status(400).json({
           err: "USER_NOT_FOUND",
         });
@@ -51,6 +52,7 @@ module.exports = {
         plan == result.subscription.plan &&
         type == result.subscription.type
       ) {
+        await telegramClient.disconnect()
         return res.redirect(config.uiEndpoint + "/pricing");
       }
 
@@ -79,6 +81,7 @@ module.exports = {
           }
         }
 
+        await telegramClient.disconnect()
         return res.redirect(config.uiEndpoint + "/pricing");
       }
 
@@ -98,6 +101,7 @@ module.exports = {
         cancel_url: config.uiEndpoint + "/pricing",
       });
 
+      await telegramClient.disconnect()
       // Redirect the user the the checkout screen
       res.redirect(303, session.url || config.uiEndpoint + "/pricing");
     } catch (err) {

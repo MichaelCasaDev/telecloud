@@ -21,6 +21,7 @@ module.exports = {
     const stripeClient = stripeClientLogin();
 
     if (!(await isAuthorized(telegramClient))) {
+      await telegramClient.disconnect()
       return res.status(401).json({
         err: {
           errorMessage: "NOT_AUTHORIZED",
@@ -53,15 +54,18 @@ module.exports = {
         // Delete customer from Stripe
         await stripeClient.customers.del(result.subscription.stripeId);
 
+        await telegramClient.disconnect()
         return res.status(200).json({
           data: "ALL data deleted!",
         });
       } else {
+        await telegramClient.disconnect()
         return res.status(400).json({
           err: "USER_NOT_FOUND",
         });
       }
     } catch (err) {
+      await telegramClient.disconnect()
       return res
         .status(500)
         .json({ stringSession: telegramClient.session.save(), err });

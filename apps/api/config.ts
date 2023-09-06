@@ -40,7 +40,7 @@ export const telegram: TelegramAuthType = {
 export const stripe: StripeInterface = {
   apiKey: String(process.env.STRIPE_API_KEY),
   configuration: {
-    apiVersion: "2020-08-27",
+    apiVersion: "2022-08-01",
   },
 };
 
@@ -48,8 +48,8 @@ export const isBeta: boolean = true;
 
 export const CHUNK_MAX_SIZE: number = 2000000000; // 2GB (2000000000) - 10MB [for testing purposes] (10000000)
 
-export const apiEndpoint: string = String(process.env.API_ENDPOINT);
+export const apiEndpoint: string = String(process.env.NEXT_PUBLIC_API_ENDPOINT);
 
-export const uiEndpoint: string = String(process.env.UI_ENDPOINT);
+export const uiEndpoint: string = String(process.env.NEXT_PUBLIC_UI_ENDPOINT);
 
-export const webEndpoint: string = String(process.env.WEB_ENDPOINT);
+export const webEndpoint: string = String(process.env.NEXT_PUBLIC_WEB_ENDPOINT);

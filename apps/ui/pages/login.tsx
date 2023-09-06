@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from "next";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/router";
 import Head from "next/head";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { checkAuth } from "../lib/checkAuth";
 import * as config from "../config";

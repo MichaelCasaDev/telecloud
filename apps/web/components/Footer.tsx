@@ -11,33 +11,26 @@ export default function Footer() {
           color: "#4895ef",
         }}
       >
-        Currently in{" "}
-        <span
-          style={{
-            fontStyle: "italic",
-          }}
-        >
-          ALPHA
-        </span>
-        . Some things may not work as excepted!
+        Telecloud is now Open Sourced! Check it out<Link href="https://github.com/MichaelCasaDev/telecloud" target="_blank" style={{
+          textDecoration: "underline",
+          color: "blue"
+        }}>here</Link>
       </p>
       <div className="sections">
         <div className="section">
           <Link href="/">
-            <a>
-              <img
-                className="title"
-                src="/img/logo-exp.svg"
-                alt="Telecloud Logo expanded"
-              />
-            </a>
+            <img
+              className="title"
+              src="/img/logo-exp.svg"
+              alt="Telecloud Logo expanded"
+            />
           </Link>
 
           <p>An unlimited cloud storage based on Telegram!</p>
           <p>
             Made by
-            <Link href="https://twitter.com/MichaelCasaDev">
-              <a target="_blank">MichaelCasaDev</a>
+            <Link href="https://twitter.com/MichaelCasaDev" target="_blank">
+              MichaelCasaDev
             </Link>
             from 🇮🇹
           </p>
@@ -46,20 +39,20 @@ export default function Footer() {
           <p className="title">Links</p>
 
           <Link href="/faq">
-            <a>FAQ</a>
+            FAQ
           </Link>
           <Link href="/pricing">
-            <a>Pricing</a>
+            Pricing
           </Link>
           <Link href="/statistics">
-            <a>Statistics</a>
+            Statistics
           </Link>
         </div>
         <div className="section">
           <p className="title">Socials</p>
 
-          <Link href="https://twitter.com/MichaelCasaDev">
-            <a target="_blank">MichaelCasaDev (Creator)</a>
+          <Link href="https://twitter.com/MichaelCasaDev" target="_blank">
+            MichaelCasaDev (Creator)
           </Link>
         </div>
       </div>

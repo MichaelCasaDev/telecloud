@@ -53,6 +53,7 @@ module.exports = {
 
         // Return error if another migration error
         if (!(result1 instanceof Api.auth.LoginTokenSuccess)) {
+          await telegramClient.disconnect()
           return res.status(500).json({
             stringSession: telegramClient.session.save(),
             err: {
@@ -64,10 +65,12 @@ module.exports = {
         // Logged in succesfully
         await createUserDatabase(db, telegramClient);
 
+        await telegramClient.disconnect()
         return res
           .status(200)
           .json({ stringSession: telegramClient.session.save() });
       } else {
+        await telegramClient.disconnect()
         return res.status(500).json({
           err: {
             errorMessage: "No auth",
@@ -75,6 +78,7 @@ module.exports = {
         });
       }
     } catch (err) {
+      await telegramClient.disconnect()
       return res
         .status(500)
         .json({ stringSession: telegramClient.session.save(), err });

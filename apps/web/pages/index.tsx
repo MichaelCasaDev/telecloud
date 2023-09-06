@@ -5,7 +5,7 @@ import Link from "next/link";
 import * as config from "../config";
 import Footer from "../components/Footer";
 
-export default function Page() {  
+export default function Page() {
   return (
     <div>
       <Head>
@@ -22,33 +22,19 @@ export default function Page() {
             An <span className="alt">UNLIMITED</span> cloud storage based on
             Telegram!
           </p>
-          {config.isBeta ? (
-            <Link href={"/beta"}>
-              <a className="try">
-                Join beta now{" "}
-                <Icon.ArrowRight
-                  size={16}
-                  style={{
-                    marginLeft: "0.5rem",
-                    marginBottom: "-2px",
-                  }}
-                />
-              </a>
-            </Link>
-          ) : (
-            <Link href={config.uiEndpoint + "/login"}>
-              <a className="try">
-                Register now{" "}
-                <Icon.ArrowRight
-                  size={16}
-                  style={{
-                    marginLeft: "0.5rem",
-                    marginBottom: "-2px",
-                  }}
-                />
-              </a>
-            </Link>
-          )}
+          <p
+            style={{
+              margin: "2rem",
+              fontWeight: 500,
+              fontSize: "18px",
+              color: "#4895ef",
+            }}
+          >
+            Telecloud is now Open Sourced! Check it out<Link href="https://github.com/MichaelCasaDev/telecloud" target="_blank" style={{
+              textDecoration: "underline",
+              color: "blue"
+            }}>here</Link>
+          </p>
         </div>
 
         <div id="features">

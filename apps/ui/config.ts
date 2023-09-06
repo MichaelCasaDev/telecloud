@@ -26,7 +26,7 @@ export const cookies: CookiesType = {
   },
 };
 
-export const isBeta: boolean = true;
+export const isBeta: boolean = false;
 
 export const previewCustom: String[] = ["application/pdf"];
 

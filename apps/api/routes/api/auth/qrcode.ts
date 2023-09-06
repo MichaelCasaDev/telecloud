@@ -21,6 +21,7 @@ module.exports = {
         })
       );
 
+      await telegramClient.disconnect()
       return res.status(200).json({
         stringSession: telegramClient.session.save(),
         code:
@@ -28,6 +29,7 @@ module.exports = {
         expires: result.expires,
       });
     } catch (err) {
+      await telegramClient.disconnect()
       return res
         .status(500)
         .json({ stringSession: telegramClient.session.save(), err });

@@ -145,16 +145,14 @@ export default function Page() {
                           : "forever"}
                       </p>
                     </div>
-                    <Link href={config.uiEndpoint}>
-                      <a
-                        className="button"
-                        target="_blank"
-                        style={{
-                          display: "block",
-                        }}
-                      >
-                        Get started
-                      </a>
+                    <Link href={config.uiEndpoint} className="button"
+                      target="_blank"
+                      style={{
+                        display: "block",
+                      }}>
+
+                      Get started
+
                     </Link>
 
                     <div>

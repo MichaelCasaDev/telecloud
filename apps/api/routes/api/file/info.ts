@@ -38,7 +38,7 @@ module.exports = {
         if (e.uuid == id) found = true;
       });
 
-      if (!found) {
+      if (!found) {await telegramClient.disconnect()
         return res.status(404).json({
           err: "File not found!!",
         });
@@ -50,7 +50,7 @@ module.exports = {
           uuid: String(id),
         }) as any as FileExpInterface;
 
-      if (result) {
+      if (result) {await telegramClient.disconnect()
         return res
           .status(200)
           .json({ stringSession: telegramClient.session.save(), result });
@@ -59,7 +59,7 @@ module.exports = {
           err: "File not found!!",
         });
       }
-    } catch (err) {
+    } catch (err) {await telegramClient.disconnect()
       return res
         .status(500)
         .json({ stringSession: telegramClient.session.save(), err });

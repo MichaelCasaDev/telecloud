@@ -9,9 +9,9 @@ export default function Navbar() {
   return (
     <div className="navbar">
       <Link href="/">
-        <a>
-          <img src="/img/logo-exp.svg" alt="Telecloud Logo expanded" />
-        </a>
+
+        <img src="/img/logo-exp.svg" alt="Telecloud Logo expanded" />
+
       </Link>
 
       <Icon.Menu
@@ -26,8 +26,8 @@ export default function Navbar() {
           showModalSite == "yes"
             ? "active"
             : showModalSite == "no"
-            ? "disactive"
-            : `no`
+              ? "disactive"
+              : `no`
         }
       >
         <button className="close" onClick={() => setModalSite("no")}>
@@ -36,35 +36,35 @@ export default function Navbar() {
 
         <p>
           <Link href="/">
-            <a>Home</a>
+            Home
           </Link>
         </p>
         <p>
           <Link href="/faq">
-            <a>FAQ</a>
+            FAQ
           </Link>
         </p>
         <p>
           <Link href="/pricing">
-            <a>Pricing</a>
+            Pricing
           </Link>
         </p>
         <p>
           <Link href="/statistics">
-            <a>Statistics</a>
+            Statistics
           </Link>
         </p>
         <p id="dashboard">
-          <Link href={config.uiEndpoint + "/"}>
-            <a className={"selected"} target="_blank">
-              <Icon.ArrowRightCircle
-                size={16}
-                style={{
-                  marginRight: "0.5rem",
-                }}
-              />
-              Dashboard
-            </a>
+          <Link className={"selected"} target="_blank" href={config.uiEndpoint + "/"}>
+
+            <Icon.ArrowRightCircle
+              size={16}
+              style={{
+                marginRight: "0.5rem",
+              }}
+            />
+            Dashboard
+
           </Link>
         </p>
       </div>

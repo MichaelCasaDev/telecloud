@@ -25,21 +25,16 @@ export async function isAuthorized(telegramClient: TelegramClient) {
     const db = (await connectToDatabase()).db();
 
     const account = await db
-      .collection(config.database.collections.betaAccounts)
+      .collection(config.database.collections.users)
       .findOne({
         phone: String(((await telegramClient.getMe()) as any).phone),
       });
 
-    // Beta related checks
-    if (config.isBeta) {
-      if (account && account.accepted) {
-        return true;
-      } else {
-        return false;
-      }
+    if (account) {
+      return true;
+    } else {
+      return false;
     }
-
-    return true;
   }
 
   return false;

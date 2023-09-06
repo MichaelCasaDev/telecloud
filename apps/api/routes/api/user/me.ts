@@ -18,6 +18,7 @@ module.exports = {
     const db = (await connectToDatabase()).db();
 
     if (!(await isAuthorized(telegramClient))) {
+      await telegramClient.disconnect()
       return res.status(401).json({
         err: {
           errorMessage: "NOT_AUTHORIZED",
@@ -45,15 +46,18 @@ module.exports = {
           }
         );
 
+        await telegramClient.disconnect()
         return res
           .status(200)
           .json({ stringSession: telegramClient.session.save(), data: result });
       } else {
+        await telegramClient.disconnect()
         return res.status(400).json({
           err: "USER_NOT_FOUND",
         });
       }
     } catch (err) {
+      await telegramClient.disconnect()
       return res
         .status(500)
         .json({ stringSession: telegramClient.session.save(), err });

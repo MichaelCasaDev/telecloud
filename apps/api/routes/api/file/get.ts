@@ -78,10 +78,10 @@ module.exports = {
           res.write(buff);
         }
       }
-
+      await telegramClient.disconnect()
       // Send the file to the client (as an attachment)
       return res.end();
-    } catch (err) {
+    } catch (err) {await telegramClient.disconnect()
       return res
         .status(200)
         .json({ stringSession: telegramClient.session.save(), err });

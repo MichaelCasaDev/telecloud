@@ -17,10 +17,12 @@ module.exports = {
         })
       );
 
+      await telegramClient.disconnect()
       return res
         .status(200)
         .json({ stringSession: telegramClient.session.save() });
     } catch (err: any) {
+      await telegramClient.disconnect()
       return res
         .status(500)
         .json({ stringSession: telegramClient.session.save(), err: err });

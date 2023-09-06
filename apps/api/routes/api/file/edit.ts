@@ -32,6 +32,7 @@ module.exports = {
     const db = (await connectToDatabase()).db();
 
     if (!(await isAuthorized(telegramClient))) {
+      await telegramClient.disconnect()
       return res.status(401).json({
         err: {
           errorMessage: "NOT_AUTHORIZED",
@@ -52,6 +53,7 @@ module.exports = {
       })) as any as UserInterface;
 
     if (!(await isNameAvailable(db, telegramClient, name, path, false))) {
+      await telegramClient.disconnect()
       return res.status(500).json({
         stringSession: telegramClient.session.save(),
         err: "File or folder name not available!",
@@ -109,6 +111,7 @@ module.exports = {
         );
       });
 
+      await telegramClient.disconnect()
       return res.status(200).json({
         stringSession: telegramClient.session.save(),
         data: {
@@ -132,6 +135,7 @@ module.exports = {
       }
     );
 
+    await telegramClient.disconnect()
     return res.status(200).json({
       stringSession: telegramClient.session.save(),
       data: {

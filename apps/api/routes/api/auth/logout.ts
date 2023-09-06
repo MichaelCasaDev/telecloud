@@ -21,6 +21,7 @@ module.exports = {
       }
 
       await telegramClient.invoke(new Api.auth.LogOut());
+      await telegramClient.disconnect()
       return res
         .status(200)
         .json({ stringSession: telegramClient.session.save() });
